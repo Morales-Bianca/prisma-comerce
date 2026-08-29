@@ -1,0 +1,366 @@
+.ventas {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr;
+  gap: 20px;
+  align-items: start;
+}
+
+.buscadores {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.search-box {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #141b2e;
+  border-radius: 12px;
+  padding: 12px 14px;
+}
+
+.search-icon {
+  opacity: 0.6;
+}
+
+.search-box input {
+  flex: 1;
+  background: none;
+  border: none;
+  outline: none;
+  color: #f5f7fa;
+  font-size: 0.9rem;
+}
+
+.search-box input::placeholder {
+  color: #6b7386;
+}
+
+.table-card {
+  background: #141b2e;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.table-header,
+.table-row {
+  display: grid;
+  grid-template-columns: 2fr 1.2fr 1fr 1.3fr;
+  align-items: center;
+  padding: 14px 18px;
+  gap: 8px;
+}
+
+.table-header {
+  color: #6b7386;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+}
+
+.table-row {
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  color: #f5f7fa;
+}
+
+.proveedor {
+  color: #8b93a7;
+  font-size: 0.9rem;
+}
+
+.qty-control {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.qty-control button {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: #232d47;
+  color: #f5f7fa;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.qty {
+  min-width: 16px;
+  text-align: center;
+}
+
+.panel-der {
+  background: #141b2e;
+  border-radius: 16px;
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  position: sticky;
+  top: 8px;
+}
+
+.panel-der h2 {
+  color: #f5f7fa;
+  margin: 0;
+}
+
+.subtitle {
+  color: #6b7386;
+  font-size: 0.85rem;
+  margin: 0 0 12px;
+}
+
+.panel-der label {
+  color: #8b93a7;
+  font-size: 0.85rem;
+  margin-top: 8px;
+}
+
+.panel-der input[type="text"] {
+  background: #0b1220;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  padding: 12px 14px;
+  color: #f5f7fa;
+  outline: none;
+  margin-top: 4px;
+}
+
+.hint {
+  color: #6b7386;
+  font-size: 0.85rem;
+  margin: 14px 0;
+}
+
+.carrito {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: 12px 0;
+}
+
+.carrito-item {
+  display: flex;
+  justify-content: space-between;
+  color: #f5f7fa;
+  font-size: 0.9rem;
+}
+
+.total-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  margin-top: 14px;
+  padding-top: 14px;
+}
+
+.total-row span:first-child {
+  color: #8b93a7;
+  font-size: 0.95rem;
+}
+
+.total-value {
+  color: #f5f7fa;
+  font-size: 1.5rem;
+  font-weight: 800;
+}
+
+.metodos {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-top: 6px;
+}
+
+.metodo {
+  background: #0b1220;
+  color: #8b93a7;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 12px 6px;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+
+.metodo.active {
+  background: #4c7cf0;
+  color: #fff;
+  border-color: #4c7cf0;
+}
+
+.checkbox-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.88rem;
+  color: #f5f7fa !important;
+  margin-top: 14px;
+}
+
+.btn-cobrar {
+  background: #fff;
+  color: #0b1220;
+  border: none;
+  border-radius: 12px;
+  padding: 16px;
+  font-weight: 800;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-top: 16px;
+}
+
+@media (max-width: 800px) {
+  .ventas {
+    grid-template-columns: 1fr;
+  }
+  .panel-der {
+    position: static;
+  }
+}
+
+/* ---- Modal / Ticket de factura ---- */
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+  padding: 20px;
+}
+
+.ticket {
+  background: #fff;
+  color: #1a1a1a;
+  font-family: 'Courier New', monospace;
+  width: 320px;
+  max-width: 100%;
+  padding: 24px 20px;
+  border-radius: 4px;
+  position: relative;
+}
+
+.close-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: none;
+  border: none;
+  color: #999;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.ticket-brand {
+  text-align: center;
+  font-weight: 700;
+  font-size: 1.1rem;
+  letter-spacing: 0.05em;
+}
+
+.ticket-sub {
+  text-align: center;
+  font-size: 0.75rem;
+  color: #444;
+}
+
+.dashed {
+  border-top: 1px dashed #999;
+  margin: 10px 0;
+}
+
+.ticket-line {
+  font-size: 0.8rem;
+  margin: 2px 0;
+}
+
+.ticket-row {
+  display: grid;
+  grid-template-columns: 0.6fr 2fr 0.8fr;
+  font-size: 0.78rem;
+  margin: 3px 0;
+  gap: 4px;
+}
+
+.ticket-row .desc {
+  overflow-wrap: break-word;
+}
+
+.header-row {
+  font-weight: 700;
+}
+
+.ticket-total {
+  display: flex;
+  justify-content: space-between;
+  font-weight: 700;
+  font-size: 0.95rem;
+  margin-top: 6px;
+}
+
+.ticket-thanks {
+  text-align: center;
+  font-size: 0.85rem;
+  margin-top: 10px;
+}
+
+.ticket-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.btn-cerrar,
+.btn-imprimir {
+  flex: 1;
+  padding: 12px;
+  border-radius: 10px;
+  border: none;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: system-ui, sans-serif;
+}
+
+.btn-cerrar {
+  background: #eee;
+  color: #333;
+}
+
+.btn-imprimir {
+  background: #4c7cf0;
+  color: #fff;
+}
+
+@media print {
+  body * {
+    display: none !important;
+  }
+
+  .modal-overlay,
+  .modal-overlay * {
+    display: revert !important;
+  }
+
+  .modal-overlay {
+    position: static !important;
+    background: #fff !important;
+    padding: 0 !important;
+    display: flex !important;
+  }
+
+  .ticket {
+    width: 100% !important;
+    max-width: 320px !important;
+    margin: 0 auto;
+  }
+
+  .no-print {
+    display: none !important;
+  }
+}

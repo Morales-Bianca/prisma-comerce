@@ -1,0 +1,52 @@
+<div class="reportes">
+  <div class="stats-row">
+    <div class="stat">
+      <span class="stat-label">Ventas de la semana</span>
+      <span class="stat-value">Bs {{ ventasSemana().toFixed(2) }}</span>
+    </div>
+    <div class="stat">
+      <span class="stat-label">Ganancia estimada</span>
+      <span class="stat-value verde">Bs {{ gananciaEstimada().toFixed(2) }}</span>
+    </div>
+    <div class="stat">
+      <span class="stat-label">Ticket promedio</span>
+      <span class="stat-value">Bs {{ ticketPromedio().toFixed(2) }}</span>
+    </div>
+  </div>
+
+  <h2 class="section-title">Ventas por día</h2>
+  <div class="chart-card">
+    <div class="chart">
+      @for (d of ventasPorDia(); track d.dia) {
+        <div class="bar-col">
+          <div class="bar-wrap">
+            <div class="bar" [style.height.%]="d.porcentaje"></div>
+          </div>
+          <span class="bar-value">{{ d.total > 0 ? ('Bs ' + d.total.toFixed(0)) : '' }}</span>
+          <span class="bar-label">{{ d.dia }}</span>
+        </div>
+      }
+    </div>
+  </div>
+
+  <h2 class="section-title">Productos más vendidos</h2>
+  <div class="table-card">
+    <div class="table-header">
+      <span>Producto</span>
+      <span>Unidades</span>
+      <span>Ingresos</span>
+    </div>
+
+    @for (p of productosMasVendidos(); track p.nombre) {
+      <div class="table-row">
+        <span class="nombre">{{ p.nombre }}</span>
+        <span class="unidades">{{ p.unidades }}</span>
+        <span class="ingresos">Bs {{ p.ingresos.toFixed(2) }}</span>
+      </div>
+    }
+
+    @if (productosMasVendidos().length === 0) {
+      <div class="empty">Todavía no hay ventas registradas.</div>
+    }
+  </div>
+</div>

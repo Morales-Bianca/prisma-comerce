@@ -1,0 +1,45 @@
+.app-shell {
+  min-height: 100vh;
+  background: #fffdfd;
+  display: flex;
+  flex-direction: column;
+}
+
+
+
+.content {
+  flex: 1;
+  padding: 8px 20px 100px;
+}
+
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  background: #837853;
+  padding: 14px 24px;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+}
+
+.nav-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  color: #d0abab;
+  text-decoration: none;
+  font-size: 1rem;
+}
+
+.nav-btn.active {
+  color: #f5f7fa;
+}
+
+.nav-icon {
+  font-size: 3rem;
+}

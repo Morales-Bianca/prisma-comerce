@@ -1,0 +1,23 @@
+<div class="dashboard">
+  <app-top-header [titleLines]="['Prisma', 'Comerce']"></app-top-header>
+
+  <div class="dash-layout">
+
+    <div class="cards-grid">
+      @for (item of accesos; track item.title) {
+        <a class="card" [class.highlight]="item.highlight" [routerLink]="['/', item.path]">
+          <span class="card-icon" [class.highlight]="item.highlight">{{ item.icon }}</span>
+          <span class="card-title">{{ item.title }}</span>
+        </a>
+      }
+    </div>
+
+    <div class="featured-card">
+      <img src="negocio.jpg" alt="Prisma Comerce" class="featured-img" />
+      <div class="featured-overlay">
+        <span class="featured-title">Prisma Comerce</span>
+      </div>
+    </div>
+  </div>
+
+</div>

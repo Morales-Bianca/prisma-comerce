@@ -1,0 +1,90 @@
+.dashboard h1 {
+  font-size: 2.4rem;
+  font-weight: 800;
+  line-height: 1.1;
+  color: #000000;
+  margin: 12px 0 28px;
+}
+
+.dash-layout {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 16px;
+  align-items: stretch;
+}
+
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+  align-content: start;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 20px;
+  background: linear-gradient(155deg,  #cacbba, #f8f9ef);
+  border-radius: 16px;
+  text-decoration: none;
+  min-height: 100px;
+  justify-content: center;
+}
+
+.card-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 10px;
+  background: #939fbe;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+}
+
+.card-icon.highlight {
+  background: #939fbe;
+}
+
+.card-title {
+  font-weight: 700;
+  color: #000000;
+  font-size: 0.95rem;
+}
+
+.featured-card {
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  min-height: 220px;
+}
+
+.featured-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  inset: 0;
+}
+
+.featured-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-end;
+  padding: 18px;
+  background: linear-gradient(180deg, transparent 40%, rgba(0, 0, 0, 0.75) 100%);
+}
+
+.featured-title {
+  color: #000000;
+  font-weight: 800;
+  font-size: 1.2rem;
+}
+
+@media (max-width: 700px) {
+  .dash-layout {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,229 @@
+.facturas h1 {
+  color: #f5f7fa;
+  margin: 0 0 4px;
+}
+
+.subtitle {
+  color: #6b7386;
+  margin: 0 0 20px;
+}
+
+.filters {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.chip {
+  background: #141b2e;
+  color: #8b93a7;
+  border: none;
+  border-radius: 20px;
+  padding: 8px 16px;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.chip.active {
+  background: #4c7cf0;
+  color: #fff;
+}
+
+.table-card {
+  background: #141b2e;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.table-header,
+.table-row {
+  display: grid;
+  grid-template-columns: 1.2fr 1.4fr 1fr 1fr 1fr 0.7fr;
+  align-items: center;
+  padding: 14px 18px;
+  gap: 8px;
+}
+
+.table-header {
+  color: #6b7386;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+}
+
+.table-row {
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  color: #f5f7fa;
+}
+
+.fecha,
+.metodo {
+  color: #8b93a7;
+  font-size: 0.85rem;
+}
+
+.badge {
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 20px;
+  width: fit-content;
+}
+
+.badge.si {
+  background: rgba(76, 124, 240, 0.15);
+  color: #4c7cf0;
+}
+
+.badge.no {
+  background: rgba(139, 147, 167, 0.15);
+  color: #8b93a7;
+}
+
+.ver-btn {
+  background: #232d47;
+  color: #f5f7fa;
+  border: none;
+  border-radius: 8px;
+  padding: 6px 12px;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+
+.empty {
+  padding: 24px;
+  text-align: center;
+  color: #6b7386;
+}
+
+/* ---- Modal / Ticket (igual que en ventas) ---- */
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+  padding: 20px;
+}
+
+.ticket {
+  background: #fff;
+  color: #1a1a1a;
+  font-family: 'Courier New', monospace;
+  width: 320px;
+  max-width: 100%;
+  padding: 24px 20px;
+  border-radius: 4px;
+  position: relative;
+}
+
+.close-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: none;
+  border: none;
+  color: #999;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.ticket-brand {
+  text-align: center;
+  font-weight: 700;
+  font-size: 1.1rem;
+  letter-spacing: 0.05em;
+}
+
+.ticket-sub {
+  text-align: center;
+  font-size: 0.75rem;
+  color: #444;
+}
+
+.dashed {
+  border-top: 1px dashed #999;
+  margin: 10px 0;
+}
+
+.ticket-line {
+  font-size: 0.8rem;
+  margin: 2px 0;
+}
+
+.ticket-row {
+  display: grid;
+  grid-template-columns: 0.6fr 2fr 0.8fr;
+  font-size: 0.78rem;
+  margin: 3px 0;
+  gap: 4px;
+}
+
+.ticket-row .desc {
+  overflow-wrap: break-word;
+}
+
+.header-row {
+  font-weight: 700;
+}
+
+.ticket-total {
+  display: flex;
+  justify-content: space-between;
+  font-weight: 700;
+  font-size: 0.95rem;
+  margin-top: 6px;
+}
+
+.ticket-thanks {
+  text-align: center;
+  font-size: 0.85rem;
+  margin-top: 10px;
+}
+
+.ticket-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.btn-cerrar,
+.btn-imprimir {
+  flex: 1;
+  padding: 12px;
+  border-radius: 10px;
+  border: none;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: system-ui, sans-serif;
+}
+
+.btn-cerrar {
+  background: #eee;
+  color: #333;
+}
+
+.btn-imprimir {
+  background: #4c7cf0;
+  color: #fff;
+}
+
+@media (max-width: 700px) {
+  .table-header {
+    display: none;
+  }
+  .table-row {
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      "fecha total"
+      "cliente metodo"
+      "badge accion";
+  }
+  .fecha { grid-area: fecha; }
+  .total { grid-area: total; }
+  .cliente { grid-area: cliente; }
+  .metodo { grid-area: metodo; }
+  .badge { grid-area: badge; }
+}

@@ -1,0 +1,248 @@
+.stats-row {
+  display: flex;
+  gap: 48px;
+  margin-bottom: 28px;
+  flex-wrap: wrap;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.stat-label {
+  color: #8b93a7;
+  font-size: 0.85rem;
+}
+
+.stat-value {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: #f5f7fa;
+}
+
+.stat-value.ingreso {
+  color: #3ecf8e;
+}
+
+.stat-value.egreso {
+  color: #ef5b5b;
+}
+
+.top-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.filters {
+  display: flex;
+  gap: 10px;
+}
+
+.chip {
+  background: #141b2e;
+  color: #8b93a7;
+  border: none;
+  border-radius: 20px;
+  padding: 8px 16px;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.chip.active {
+  background: #4c7cf0;
+  color: #fff;
+}
+
+.btn-add {
+  background: #4c7cf0;
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  padding: 12px 20px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.table-card {
+  background: #141b2e;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.table-header,
+.table-row {
+  display: grid;
+  grid-template-columns: 2fr 1.4fr 0.8fr 1fr 1fr;
+  align-items: center;
+  padding: 14px 18px;
+  gap: 8px;
+}
+
+.table-header {
+  color: #6b7386;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+}
+
+.table-row {
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  color: #f5f7fa;
+}
+
+.categoria,
+.hora,
+.registrado {
+  color: #8b93a7;
+  font-size: 0.85rem;
+}
+
+.monto {
+  font-weight: 700;
+  text-align: right;
+}
+
+.monto.ingreso {
+  color: #3ecf8e;
+}
+
+.monto.egreso {
+  color: #ef5b5b;
+}
+
+.empty {
+  padding: 24px;
+  text-align: center;
+  color: #6b7386;
+}
+
+/* ---- Modal ---- */
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+  padding: 20px;
+}
+
+.modal {
+  background: #141b2e;
+  border-radius: 20px;
+  padding: 28px;
+  width: 100%;
+  max-width: 420px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-header h2 {
+  color: #f5f7fa;
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  color: #8b93a7;
+  font-size: 1.1rem;
+  cursor: pointer;
+}
+
+.modal label {
+  color: #8b93a7;
+  font-size: 0.85rem;
+  margin-bottom: -4px;
+}
+
+.modal input,
+.modal select {
+  background: #0b1220;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  padding: 12px 14px;
+  color: #f5f7fa;
+  outline: none;
+}
+
+.tipo-toggle {
+  display: flex;
+  gap: 8px;
+}
+
+.tipo-btn {
+  flex: 1;
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: #0b1220;
+  color: #8b93a7;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.tipo-btn.active {
+  background: #4c7cf0;
+  color: #fff;
+  border-color: #4c7cf0;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.btn-cancel,
+.btn-save {
+  flex: 1;
+  padding: 14px;
+  border-radius: 12px;
+  border: none;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.btn-cancel {
+  background: #232d47;
+  color: #f5f7fa;
+}
+
+.btn-save {
+  background: #4c7cf0;
+  color: #fff;
+}
+
+@media (max-width: 700px) {
+  .table-header {
+    display: none;
+  }
+  .table-row {
+    grid-template-columns: 1fr auto;
+    grid-template-areas:
+      "concepto monto"
+      "categoria categoria"
+      "hora registrado";
+  }
+  .concepto { grid-area: concepto; }
+  .monto { grid-area: monto; }
+  .categoria { grid-area: categoria; }
+  .hora { grid-area: hora; }
+  .registrado { grid-area: registrado; }
+}

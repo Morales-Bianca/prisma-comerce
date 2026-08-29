@@ -1,0 +1,244 @@
+.top-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.contador {
+  color: #8b93a7;
+  font-size: 0.95rem;
+}
+
+.btn-add {
+  background: #4c7cf0;
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  padding: 12px 20px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.table-card {
+  background: #141b2e;
+  border-radius: 16px;
+  overflow: hidden;
+  margin-bottom: 32px;
+}
+
+.table-header,
+.table-row {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr 1fr 0.9fr 0.5fr;
+  align-items: center;
+  padding: 14px 18px;
+  gap: 8px;
+}
+
+.table-header {
+  color: #6b7386;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+}
+
+.table-row {
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  color: #f5f7fa;
+}
+
+.nombre {
+  font-weight: 700;
+}
+
+.rol,
+.acceso {
+  color: #8b93a7;
+  font-size: 0.9rem;
+}
+
+.estado {
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 20px;
+  width: fit-content;
+  background: rgba(139, 147, 167, 0.15);
+  color: #8b93a7;
+  cursor: pointer;
+}
+
+.estado.activo {
+  background: rgba(62, 207, 142, 0.15);
+  color: #3ecf8e;
+}
+
+.edit-btn {
+  background: rgba(255, 255, 255, 0.06);
+  border: none;
+  border-radius: 8px;
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+}
+
+.section-title {
+  color: #f5f7fa;
+  font-size: 1.1rem;
+  margin: 0 0 14px;
+}
+
+.perm-header,
+.perm-row {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  align-items: center;
+  padding: 14px 18px;
+  gap: 8px;
+}
+
+.perm-header {
+  color: #6b7386;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+}
+
+.perm-row {
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  color: #f5f7fa;
+}
+
+.check {
+  font-weight: 700;
+  color: #4a5170;
+}
+
+.check.si {
+  color: #3ecf8e;
+}
+
+/* ---- Modal ---- */
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+  padding: 20px;
+}
+
+.modal {
+  background: #141b2e;
+  border-radius: 20px;
+  padding: 28px;
+  width: 100%;
+  max-width: 420px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-header h2 {
+  color: #f5f7fa;
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  color: #8b93a7;
+  font-size: 1.1rem;
+  cursor: pointer;
+}
+
+.modal label {
+  color: #8b93a7;
+  font-size: 0.85rem;
+  margin-bottom: -4px;
+}
+
+.modal input {
+  background: #0b1220;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  padding: 12px 14px;
+  color: #f5f7fa;
+  outline: none;
+}
+
+.tipo-toggle {
+  display: flex;
+  gap: 8px;
+}
+
+.tipo-btn {
+  flex: 1;
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: #0b1220;
+  color: #8b93a7;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.tipo-btn.active {
+  background: #4c7cf0;
+  color: #fff;
+  border-color: #4c7cf0;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.btn-cancel,
+.btn-save {
+  flex: 1;
+  padding: 14px;
+  border-radius: 12px;
+  border: none;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.btn-cancel {
+  background: #232d47;
+  color: #f5f7fa;
+}
+
+.btn-save {
+  background: #4c7cf0;
+  color: #fff;
+}
+
+@media (max-width: 700px) {
+  .table-header,
+  .perm-header {
+    display: none;
+  }
+  .table-row {
+    grid-template-columns: 1fr auto;
+    grid-template-areas:
+      "nombre edit"
+      "rol estado"
+      "acceso acceso";
+  }
+  .nombre { grid-area: nombre; }
+  .edit-btn { grid-area: edit; }
+  .rol { grid-area: rol; }
+  .estado { grid-area: estado; }
+  .acceso { grid-area: acceso; }
+}

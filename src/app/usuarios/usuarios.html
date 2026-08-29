@@ -1,0 +1,81 @@
+<div class="usuarios">
+  <div class="top-row">
+    <span class="contador">{{ usuariosActivos() }} usuarios activos</span>
+    <button class="btn-add" (click)="abrirModalAgregar()">+ Agregar usuario</button>
+  </div>
+
+  <div class="table-card">
+    <div class="table-header">
+      <span>Nombre</span>
+      <span>Rol</span>
+      <span>Último acceso</span>
+      <span>Estado</span>
+      <span></span>
+    </div>
+
+    @for (u of usuarios(); track u.nombre) {
+      <div class="table-row">
+        <span class="nombre">{{ u.nombre }}</span>
+        <span class="rol">{{ u.rol }}</span>
+        <span class="acceso">{{ u.ultimoAcceso }}</span>
+        <span class="estado" [class.activo]="u.activo" (click)="toggleActivo(u)">
+          {{ u.activo ? 'Activo' : 'Inactivo' }}
+        </span>
+        <button class="edit-btn" (click)="abrirModalEditar(u)">✏️</button>
+      </div>
+    }
+  </div>
+
+  <h2 class="section-title">Permisos por rol</h2>
+
+  <div class="table-card">
+    <div class="perm-header">
+      <span>Sección</span>
+      <span>Vendedor</span>
+      <span>Administrador</span>
+    </div>
+
+    @for (p of permisos; track p.seccion) {
+      <div class="perm-row">
+        <span class="seccion">{{ p.seccion }}</span>
+        <span class="check" [class.si]="p.vendedor">{{ p.vendedor ? '✓' : '✕' }}</span>
+        <span class="check" [class.si]="p.administrador">{{ p.administrador ? '✓' : '✕' }}</span>
+      </div>
+    }
+  </div>
+</div>
+
+@if (modalAbierto()) {
+  <div class="modal-overlay" (click)="cerrarModal()">
+    <div class="modal" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h2>{{ modoEdicion() ? 'Editar usuario' : 'Agregar usuario' }}</h2>
+        <button class="close-btn" (click)="cerrarModal()">✕</button>
+      </div>
+
+      <label>Nombre</label>
+      <input type="text" [(ngModel)]="nuevoUsuario.nombre" placeholder="Nombre completo" />
+
+      <label>Rol</label>
+      <div class="tipo-toggle">
+        <button
+          class="tipo-btn"
+          [class.active]="nuevoUsuario.rol === 'Vendedor'"
+          (click)="nuevoUsuario.rol = 'Vendedor'"
+        >Vendedor</button>
+        <button
+          class="tipo-btn"
+          [class.active]="nuevoUsuario.rol === 'Administrador'"
+          (click)="nuevoUsuario.rol = 'Administrador'"
+        >Administrador</button>
+      </div>
+
+      <div class="modal-actions">
+        <button class="btn-cancel" (click)="cerrarModal()">Cancelar</button>
+        <button class="btn-save" (click)="guardarUsuario()">
+          {{ modoEdicion() ? 'Guardar cambios' : 'Guardar usuario' }}
+        </button>
+      </div>
+    </div>
+  </div>
+}

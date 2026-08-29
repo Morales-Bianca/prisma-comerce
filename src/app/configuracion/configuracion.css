@@ -1,0 +1,73 @@
+.config h1 {
+  color: #f5f7fa;
+  margin: 0 0 4px;
+}
+
+.subtitle {
+  color: #6b7386;
+  margin: 0 0 24px;
+}
+
+.card {
+  background: #141b2e;
+  border-radius: 16px;
+  padding: 24px;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.card h2 {
+  color: #f5f7fa;
+  margin: 0;
+  font-size: 1.05rem;
+}
+
+.hint {
+  color: #6b7386;
+  font-size: 0.82rem;
+  margin: -6px 0 4px;
+}
+
+.config label {
+  color: #8b93a7;
+  font-size: 0.85rem;
+  margin-top: 6px;
+}
+
+.config input[type="text"],
+.config input[type="number"],
+.config select {
+  background: #0b1220;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  padding: 12px 14px;
+  color: #f5f7fa;
+  outline: none;
+}
+
+.checkbox-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #f5f7fa !important;
+  font-size: 0.9rem;
+  margin-top: 10px;
+}
+
+.btn-guardar {
+  background: #4c7cf0;
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  padding: 14px 24px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.confirmacion {
+  color: #3ecf8e;
+  font-size: 0.9rem;
+  margin-top: 12px;
+}

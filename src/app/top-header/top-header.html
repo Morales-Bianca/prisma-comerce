@@ -1,0 +1,24 @@
+<div class="page-header">
+  <h1>
+    @if (titleLines.length > 0) {
+      @for (linea of titleLines; track linea) {
+        {{ linea }}<br />
+      }
+    } @else {
+      {{ title }}
+    }
+  </h1>
+
+
+  <div class="header-actions">
+    <div class="search-box">
+      <span class="search-icon"></span>
+      <input type="text" placeholder="Buscar producto, factura o cliente..." />
+    </div>
+    <button class="icon-btn" [routerLink]="['/', 'ventas']">
+      🛒
+      <span class="badge">0</span>
+    </button>
+    <button class="icon-btn avatar">👤</button>
+  </div>
+</div>

@@ -1,0 +1,108 @@
+<div class="productos">
+  <div class="top-row">
+
+   <button class="btn-add" (click)="abrirModalAgregar()">+ Agregar producto</button>
+  </div>
+
+  <div class="filters">
+    @for (f of filtros; track f) {
+      <button
+        class="chip"
+        [class.active]="filtroActivo() === f"
+        [class.danger]="f === 'Stock bajo'"
+        (click)="setFiltro(f)"
+      >
+        {{ f }}
+      </button>
+    }
+  </div>
+
+  <div class="table-card">
+    <div class="table-header">
+      <span>Producto</span>
+      <span>Código</span>
+      <span>Precio</span>
+      <span>Stock</span>
+      <span></span>
+    </div>
+
+    @for (p of productosFiltrados(); track p.codigo) {
+      <div class="table-row">
+        <span class="nombre">{{ p.nombre }}</span>
+        <span class="codigo">{{ p.codigo }}</span>
+        <span class="precio">Bs {{ p.precio.toFixed(2) }}</span>
+        <span class="stock" [class.danger]="esStockBajo(p)">{{ stockLabel(p) }}</span>
+        <button class="edit-btn" (click)="abrirModalEditar(p)">+</button>
+      </div>
+    }
+
+    @if (productosFiltrados().length === 0) {
+      <div class="empty">No se encontraron productos.</div>
+    }
+  </div>
+</div>
+
+@if (modalAbierto()) {
+  <div class="modal-overlay" (click)="cerrarModal()">
+    <div class="modal" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h2>{{ modoEdicion() ? 'Editar producto' : 'Agregar producto' }}</h2>
+        <button class="close-btn" (click)="cerrarModal()">✕</button>
+      </div>
+
+      <label>Nombre del producto</label>
+      <input type="text" [(ngModel)]="nuevoProducto.nombre" placeholder="Coca-Cola 2L" />
+
+      <label>Código de barras</label>
+      <div class="row-inline">
+        <input type="text" [(ngModel)]="nuevoProducto.codigo" placeholder="Escanea o escribe el código" />
+        <button class="btn-scan">📷 Escanear</button>
+      </div>
+
+      <div class="row-2">
+        <div>
+          <label>Categoría</label>
+          <select [(ngModel)]="nuevoProducto.categoria">
+            @for (c of categorias; track c) {
+              <option [value]="c">{{ c }}</option>
+            }
+          </select>
+        </div>
+        <div>
+          <label>Unidad</label>
+          <select [(ngModel)]="nuevoProducto.unidad">
+            @for (u of unidades; track u) {
+              <option [value]="u">{{ u }}</option>
+            }
+          </select>
+        </div>
+      </div>
+
+      <div class="row-2">
+        <div>
+          <label>Precio de venta (Bs)</label>
+          <input type="number" [(ngModel)]="nuevoProducto.precio" placeholder="12.50" />
+        </div>
+        <div>
+          <label>Precio de compra (Bs)</label>
+          <input type="number" [(ngModel)]="nuevoProducto.precioCompra" placeholder="9.00" />
+        </div>
+      </div>
+
+      <div class="row-2">
+        <div>
+          <label>Stock inicial</label>
+          <input type="number" [(ngModel)]="nuevoProducto.stock" placeholder="20" />
+        </div>
+        <div>
+          <label>Stock mínimo (alerta)</label>
+          <input type="number" [(ngModel)]="nuevoProducto.stockMinimo" placeholder="5" />
+        </div>
+      </div>
+
+      <div class="modal-actions">
+        <button class="btn-cancel" (click)="cerrarModal()">Cancelar</button>
+<button class="btn-save" (click)="guardarProducto()">{{ modoEdicion() ? 'Guardar cambios' : 'Guardar producto' }}</button>      </div>
+    </div>
+  </div>
+}
