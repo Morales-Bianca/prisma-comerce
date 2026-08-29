@@ -11,7 +11,7 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  background: #141b2e;
+ background: linear-gradient(155deg,  #cacbba, #f8f9ef);
   border-radius: 12px;
   padding: 12px 14px;
 }
@@ -67,16 +67,16 @@
 }
 
 .chip.danger {
-  color: #ef5b5b;
+  color: #f50000;
 }
 
 .chip.danger.active {
-  background: #ef5b5b;
-  color: #fff;
+  background: #e60404;
+  color: #040404;
 }
 
 .table-card {
-  background: #000000c5;
+  background: linear-gradient(155deg,  #cacbba, #f8f9ef);
   border-radius: 16px;
   overflow: hidden;
 }
@@ -98,8 +98,8 @@
 }
 
 .table-row {
-  border-top: 1px solid rgba(92, 116, 234, 0.404);
-  color: #f5f7fa;
+  border-top: 1px solid rgba(209, 209, 166, 0.404);
+  color: #000000;
 }
 
 .codigo {
@@ -108,12 +108,12 @@
 }
 
 .stock.danger {
-  color: #ef5b5b;
+  color: #be0d0d1d;
   font-weight: 700;
 }
 
 .edit-btn {
-  background: rgba(255, 255, 255, 0.06);
+  background: rgba(178, 25, 25, 0.81);
   border: none;
   border-radius: 8px;
   width: 32px;
@@ -176,7 +176,7 @@
 }
 
 .modal-header h2 {
-  color: #f5f7fa;
+  color: #f1f1f1;
   margin: 0;
   font-size: 1.2rem;
 }
@@ -190,18 +190,18 @@
 }
 
 .modal label {
-  color: #8b93a7;
+  color: #d2d2d2;
   font-size: 0.85rem;
   margin-bottom: -4px;
 }
 
 .modal input,
 .modal select {
-  background: #0b1220;
+  background: #fbfaf7;
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 10px;
   padding: 12px 14px;
-  color: #f5f7fa;
+  color: #000000;
   font-size: 0.95rem;
   outline: none;
   width: 100%;
@@ -213,8 +213,8 @@
 }
 
 .btn-scan {
-  background: #232d47;
-  color: #f5f7fa;
+  background: #bdcdf6;
+  color: #101010;
   border: none;
   border-radius: 10px;
   padding: 0 16px;

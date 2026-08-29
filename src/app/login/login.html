@@ -1,0 +1,29 @@
+<div class="login-page">
+  <div class="login-card">
+    <div class="brand-icon">🏪</div>
+    <h1>Prisma Comerce</h1>
+    <p class="subtitle">Inicia sesión para continuar</p>
+
+    @if (error()) {
+      <p class="error">{{ error() }}</p>
+    }
+
+    <label>Usuario</label>
+    <input type="text" [(ngModel)]="usuario" placeholder="Nombre de usuario" />
+
+    <label>Contraseña</label>
+    <div class="password-row">
+      <input [type]="mostrarContrasena() ? 'text' : 'password'" [(ngModel)]="contrasena" placeholder="Contraseña" />
+      <button type="button" class="toggle-btn" (click)="togglePassword()">
+        {{ mostrarContrasena() ? '🙈' : '👁️' }}
+      </button>
+    </div>
+
+    <label class="checkbox-row">
+      <input type="checkbox" [(ngModel)]="recordarme" />
+      Recordarme
+    </label>
+
+    <button class="btn-login" (click)="iniciarSesion()">Iniciar sesión</button>
+  </div>
+</div>
