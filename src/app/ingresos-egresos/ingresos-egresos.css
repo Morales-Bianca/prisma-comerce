@@ -1,3 +1,10 @@
+
+
+.ie h1 {
+  color: #f5f7fa;
+  margin: 0 0 55px;
+}
+
 .stats-row {
   display: flex;
   gap: 48px;
@@ -8,12 +15,12 @@
 .stat {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 10px;
 }
 
 .stat-label {
-  color: #8b93a7;
-  font-size: 0.85rem;
+  color: #e2e8f6;
+  font-size: 0.9rem;
 }
 
 .stat-value {
@@ -45,17 +52,17 @@
 }
 
 .chip {
-  background: #141b2e;
-  color: #8b93a7;
+ background: rgba(255, 255, 255, 0.982);
+ color: #000000;
   border: none;
   border-radius: 20px;
-  padding: 8px 16px;
+  padding: 12px 20px;
   font-size: 0.85rem;
   cursor: pointer;
 }
 
 .chip.active {
-  background: #4c7cf0;
+  background: #278835;
   color: #fff;
 }
 
@@ -64,13 +71,13 @@
   color: #fff;
   border: none;
   border-radius: 12px;
-  padding: 12px 20px;
+  padding: 10px 18px;
   font-weight: 700;
   cursor: pointer;
 }
 
 .table-card {
-  background: #141b2e;
+  background: rgba(20, 27, 46, 0.6);
   border-radius: 16px;
   overflow: hidden;
 }
@@ -85,13 +92,13 @@
 }
 
 .table-header {
-  color: #6b7386;
+  color: #fefeff;
   font-size: 0.78rem;
   text-transform: uppercase;
 }
 
 .table-row {
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  border-top: 1px solid rgba(175, 172, 172, 0.929);
   color: #f5f7fa;
 }
 
@@ -135,7 +142,7 @@
 }
 
 .modal {
-  background: #141b2e;
+  background: rgba(20, 27, 46, 0.6);
   border-radius: 20px;
   padding: 28px;
   width: 100%;
@@ -160,13 +167,13 @@
 .close-btn {
   background: none;
   border: none;
-  color: #8b93a7;
+  color: #e4e7ee;
   font-size: 1.1rem;
   cursor: pointer;
 }
 
 .modal label {
-  color: #8b93a7;
+  color: #e5e7ed;
   font-size: 0.85rem;
   margin-bottom: -4px;
 }

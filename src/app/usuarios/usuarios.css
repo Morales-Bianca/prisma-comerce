@@ -1,3 +1,8 @@
+.usuarios h1 {
+  color: #f5f7fa;
+  margin: 0 0 15px;
+}
+
 .top-row {
   display: flex;
   justify-content: space-between;
@@ -6,7 +11,7 @@
 }
 
 .contador {
-  color: #8b93a7;
+  color: #d1d4dd;
   font-size: 0.95rem;
 }
 
@@ -21,7 +26,7 @@
 }
 
 .table-card {
-  background: #141b2e;
+ background: rgba(20, 27, 46, 0.6);
   border-radius: 16px;
   overflow: hidden;
   margin-bottom: 32px;
@@ -37,13 +42,13 @@
 }
 
 .table-header {
-  color: #6b7386;
+  color: #eceef3;
   font-size: 0.78rem;
   text-transform: uppercase;
 }
 
 .table-row {
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  border-top: 1px solid rgba(141, 140, 140, 0.771);
   color: #f5f7fa;
 }
 
@@ -64,13 +69,13 @@
   border-radius: 20px;
   width: fit-content;
   background: rgba(139, 147, 167, 0.15);
-  color: #8b93a7;
+  color: #e6e8ed;
   cursor: pointer;
 }
 
 .estado.activo {
   background: rgba(62, 207, 142, 0.15);
-  color: #3ecf8e;
+  color: #3dca19;
 }
 
 .edit-btn {
@@ -98,23 +103,23 @@
 }
 
 .perm-header {
-  color: #6b7386;
+  color: #d1d1d2;
   font-size: 0.78rem;
   text-transform: uppercase;
 }
 
 .perm-row {
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  border-top: 1px solid rgba(118, 118, 118, 0.805);
   color: #f5f7fa;
 }
 
 .check {
   font-weight: 700;
-  color: #4a5170;
+  color: #991414;
 }
 
 .check.si {
-  color: #3ecf8e;
+  color: #159811;
 }
 
 /* ---- Modal ---- */
@@ -156,14 +161,14 @@
 .close-btn {
   background: none;
   border: none;
-  color: #8b93a7;
+  color: #b2b5bc;
   font-size: 1.1rem;
   cursor: pointer;
 }
 
 .modal label {
-  color: #8b93a7;
-  font-size: 0.85rem;
+  color: #fafbfb;
+  font-size: 0.9rem;
   margin-bottom: -4px;
 }
 

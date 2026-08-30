@@ -1,3 +1,8 @@
+.reportes h1 {
+  color: #f5f7fa;
+  margin: 0 0 65px;
+}
+
 .stats-row {
   display: flex;
   gap: 48px;
@@ -12,8 +17,8 @@
 }
 
 .stat-label {
-  color: #8b93a7;
-  font-size: 0.85rem;
+  color: #fafbfb;
+  font-size: 0.95rem;
 }
 
 .stat-value {
@@ -33,7 +38,7 @@
 }
 
 .chart-card {
-  background: #141b2e;
+  background: rgba(255, 255, 255, 0.203);
   border-radius: 16px;
   padding: 24px 20px 12px;
   margin-bottom: 32px;
@@ -80,13 +85,13 @@
 }
 
 .bar-label {
-  color: #6b7386;
+  color: #e9ebf0;
   font-size: 0.78rem;
   margin-top: 2px;
 }
 
 .table-card {
-  background: #141b2e;
+ background: rgba(20, 27, 46, 0.6);
   border-radius: 16px;
   overflow: hidden;
 }
@@ -101,19 +106,19 @@
 }
 
 .table-header {
-  color: #6b7386;
+  color: #ffffff;
   font-size: 0.78rem;
   text-transform: uppercase;
 }
 
 .table-row {
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  border-top: 1px solid rgba(255, 255, 255, 0.668);
   color: #f5f7fa;
 }
 
 .unidades,
 .ingresos {
-  color: #8b93a7;
+  color: #c7cee2;
   font-size: 0.9rem;
 }
 

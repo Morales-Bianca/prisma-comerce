@@ -1,3 +1,9 @@
+
+.pagina-facturas h1 {
+  color: #f5f7fa;
+  margin: 0 0 15px;
+}
+
 .ventas {
   display: grid;
   grid-template-columns: 1.6fr 1fr;
@@ -15,14 +21,14 @@
   flex: 1;
   display: flex;
   align-items: center;
-  gap: 8px;
-  background: #141b2e;
+  gap: 10px;
+   background: rgba(65, 85, 139, 0.6);
   border-radius: 12px;
-  padding: 12px 14px;
+  padding: 15px 19px;
 }
 
 .search-icon {
-  opacity: 0.6;
+  opacity: 1;
 }
 
 .search-box input {
@@ -35,11 +41,11 @@
 }
 
 .search-box input::placeholder {
-  color: #6b7386;
+  color: #bcbcc5;
 }
 
 .table-card {
-  background: #141b2e;
+  background: rgba(20, 27, 46, 0.6);
   border-radius: 16px;
   overflow: hidden;
 }
@@ -92,7 +98,7 @@
 }
 
 .panel-der {
-  background: #141b2e;
+   background: rgba(20, 27, 46, 0.6);
   border-radius: 16px;
   padding: 22px;
   display: flex;
@@ -108,19 +114,19 @@
 }
 
 .subtitle {
-  color: #6b7386;
+  color: #f1f4fd;
   font-size: 0.85rem;
   margin: 0 0 12px;
 }
 
 .panel-der label {
-  color: #8b93a7;
+  color: #fbfcfd;
   font-size: 0.85rem;
   margin-top: 8px;
 }
 
 .panel-der input[type="text"] {
-  background: #0b1220;
+   background: rgba(20, 27, 46, 0.6);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 10px;
   padding: 12px 14px;
@@ -130,7 +136,7 @@
 }
 
 .hint {
-  color: #6b7386;
+  color: #fafbff;
   font-size: 0.85rem;
   margin: 14px 0;
 }
