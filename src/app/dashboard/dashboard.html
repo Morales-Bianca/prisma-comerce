@@ -6,7 +6,8 @@
     <p class="subtitle">Bienvenido — selecciona un módulo</p>
 
     <div class="modulos-wrap">
-      <button class="arrow" (click)="mover(-1)">‹</button>
+
+     <button class="arrow" (click)="mover(-1)">‹</button>
 
       <div class="modulos-row" #fila>
          @for (item of accesos(); track item.title) {
