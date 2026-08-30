@@ -1,90 +1,136 @@
-.dashboard h1 {
-  font-size: 2.4rem;
-  font-weight: 800;
-  line-height: 1.1;
-  color: #000000;
-  margin: 12px 0 28px;
+.kiosk {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 70vh;
 }
 
-.dash-layout {
-  display: grid;
-  grid-template-columns: 1.4fr 1fr;
-  gap: 16px;
-  align-items: stretch;
+.kiosk-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: blur(6px) brightness(0.5);
+  transform: scale(1.1);
 }
 
-.cards-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 14px;
-  align-content: start;
+.kiosk-dim {
+  position: absolute;
+  inset: 0;
+  background: rgba(11, 18, 32, 0.35);
 }
 
-.card {
+.kiosk-panel {
+  position: relative;
+  z-index: 2;
+  width: min(102vw, 1200px);
+  background: rgba(20, 27, 46, 0.6);
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 32px;
+  padding: 80px 56px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  padding: 20px;
-  background: linear-gradient(155deg,  #cacbba, #f8f9ef);
-  border-radius: 16px;
-  text-decoration: none;
-  min-height: 100px;
-  justify-content: center;
+  align-items: center;
+  text-align: center;
 }
 
-.card-icon {
-  width: 50px;
-  height: 50px;
-  border-radius: 10px;
-  background: #939fbe;
+.login-corner {
+  position: absolute;
+  top: 20px;
+  right: 24px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 1.1rem;
+  text-decoration: none;
 }
 
-.card-icon.highlight {
-  background: #939fbe;
-}
-
-.card-title {
-  font-weight: 700;
-  color: #000000;
-  font-size: 0.95rem;
-}
-
-.featured-card {
-  position: relative;
-  border-radius: 20px;
-  overflow: hidden;
-  min-height: 220px;
-}
-
-.featured-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  position: absolute;
-  inset: 0;
-}
-
-.featured-overlay {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: flex-end;
-  padding: 18px;
-  background: linear-gradient(180deg, transparent 40%, rgba(0, 0, 0, 0.75) 100%);
-}
-
-.featured-title {
-  color: #000000;
+.kiosk-panel h1 {
+  color: #fff;
+  font-size: 1.9rem;
   font-weight: 800;
+  letter-spacing: 0.04em;
+  margin: 0;
+}
+
+.subtitle {
+  color: #cfd4e2;
+  font-size: 0.9rem;
+  margin: 8px 0 28px;
+}
+
+.modulos-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+}
+
+.arrow {
+  flex-shrink: 0;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  border: none;
+  font-size: 1.3rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modulos-row {
+  display: flex;
+  gap: 14px;
+  flex: 1;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
+.modulo {
+  flex: 0 0 calc(25% - 11px);
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  padding: 60px 30px;
+  background: rgba(255, 255, 255, 0.07);
+  border-radius: 20px;
+  text-decoration: none;
+}
+
+.modulo-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-size: 1.2rem;
 }
 
+.modulo-icon.highlight {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.modulo-title {
+  font-weight: 700;
+  color: #fff;
+  font-size: 0.92rem;
+}
+
 @media (max-width: 700px) {
-  .dash-layout {
-    grid-template-columns: 1fr;
+  .modulo {
+    flex: 0 0 calc(50% - 7px);
   }
 }

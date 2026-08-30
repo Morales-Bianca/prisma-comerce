@@ -1,23 +1,23 @@
-<div class="dashboard">
-  <app-top-header [titleLines]="['Prisma', 'Comerce']"></app-top-header>
+<div class="kiosk">
+  <div class="kiosk-panel">
+    <a class="login-corner" [routerLink]="['/', 'login']">👤</a>
 
-  <div class="dash-layout">
+    <h1>PRISMA COMERCE</h1>
+    <p class="subtitle">Bienvenido — selecciona un módulo</p>
 
-    <div class="cards-grid">
-      @for (item of accesos; track item.title) {
-        <a class="card" [class.highlight]="item.highlight" [routerLink]="['/', item.path]">
-          <span class="card-icon" [class.highlight]="item.highlight">{{ item.icon }}</span>
-          <span class="card-title">{{ item.title }}</span>
-        </a>
-      }
-    </div>
+    <div class="modulos-wrap">
+      <button class="arrow" (click)="mover(-1)">‹</button>
 
-    <div class="featured-card">
-      <img src="negocio.jpg" alt="Prisma Comerce" class="featured-img" />
-      <div class="featured-overlay">
-        <span class="featured-title">Prisma Comerce</span>
+      <div class="modulos-row" #fila>
+        @for (item of accesos; track item.title) {
+          <a class="modulo" [class.highlight]="item.highlight" [routerLink]="['/', item.path]">
+            <span class="modulo-icon" [class.highlight]="item.highlight">{{ item.icon }}</span>
+            <span class="modulo-title">{{ item.title }}</span>
+          </a>
+        }
       </div>
+
+      <button class="arrow" (click)="mover(1)">›</button>
     </div>
   </div>
-
 </div>
