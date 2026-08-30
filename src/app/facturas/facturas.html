@@ -3,12 +3,16 @@
   <p class="subtitle">Historial de ventas</p>
 
   <div class="filters">
-   @for (f of filtros; track f) {
+    @for (f of filtros; track f) {
       <button class="chip" [class.active]="filtro() === f" (click)="setFiltro(f)">
         {{ f }}
       </button>
     }
   </div>
+
+  @if (cargando()) {
+    <p class="hint">Cargando ventas...</p>
+  }
 
   <div class="table-card">
     <div class="table-header">
@@ -23,41 +27,40 @@
     @for (v of ventasFiltradas(); track v.id) {
       <div class="table-row">
         <span class="fecha">{{ v.fecha | date:'dd/MM/yy HH:mm' }}</span>
-        <span class="cliente">{{ v.cliente || 'Sin nombre' }}</span>
-        <span class="metodo">{{ v.metodoPago }}</span>
-        <span class="total">Bs {{ v.total.toFixed(2) }}</span>
-        <span class="badge" [class.si]="v.conFactura" [class.no]="!v.conFactura">
-          {{ v.conFactura ? (buscarFactura(v))?.numero : 'Sin factura' }}
+        <span class="cliente">{{ v.cliente_nombre || 'Sin nombre' }}</span>
+        <span class="metodo">{{ v.metodo_pago }}</span>
+        <span class="total">Bs {{ v.total }}</span>
+        <span class="badge" [class.si]="v.con_factura" [class.no]="!v.con_factura">
+          {{ v.con_factura ? v.factura?.numero : 'Sin factura' }}
         </span>
         <span>
-          @if (v.conFactura) {
+          @if (v.con_factura) {
             <button class="ver-btn" (click)="verFactura(v)">Ver</button>
           }
         </span>
       </div>
     }
 
-    @if (ventasFiltradas().length === 0) {
+    @if (!cargando() && ventasFiltradas().length === 0) {
       <div class="empty">Todavía no hay ventas registradas.</div>
     }
   </div>
 </div>
 
 @if (facturaVer(); as datos) {
-
   <div class="modal-overlay" (click)="cerrarFactura()">
     <div class="ticket" (click)="$event.stopPropagation()">
       <button class="close-btn no-print" (click)="cerrarFactura()">✕</button>
 
       <div class="ticket-brand">PRISMA COMERCE</div>
       <div class="ticket-sub">Sistema de Ventas - Micromercado</div>
-      <div class="ticket-sub">{{ datos.factura.fecha | date:'dd/MM/yy HH:mm:ss' }}</div>
+      <div class="ticket-sub">{{ datos.venta.factura?.fecha | date:'dd/MM/yy HH:mm:ss' }}</div>
 
       <div class="dashed"></div>
-      <div class="ticket-line">FACTURA {{ datos.factura.numero }}</div>
-      <div class="ticket-line">Cliente: {{ datos.factura.cliente }}</div>
-      @if (datos.factura.documento) {
-        <div class="ticket-line">NIT/CI: {{ datos.factura.documento }}</div>
+      <div class="ticket-line">FACTURA {{ datos.venta.factura?.numero }}</div>
+      <div class="ticket-line">Cliente: {{ datos.venta.cliente_nombre || 'Sin nombre' }}</div>
+      @if (datos.venta.cliente_documento) {
+        <div class="ticket-line">NIT/CI: {{ datos.venta.cliente_documento }}</div>
       }
 
       <div class="dashed"></div>
@@ -68,18 +71,18 @@
       </div>
       <div class="dashed"></div>
 
-      @for (item of datos.items; track item.nombre) {
+      @for (item of datos.venta.items; track item.nombre) {
         <div class="ticket-row">
           <span>{{ item.cantidad }}</span>
           <span class="desc">{{ item.nombre }}</span>
-          <span>{{ (item.precio * item.cantidad).toFixed(2) }}</span>
+          <span>{{ (item.precio_unitario * item.cantidad).toFixed(2) }}</span>
         </div>
       }
 
       <div class="dashed"></div>
       <div class="ticket-total">
         <span>TOTAL A PAGAR</span>
-        <span>Bs {{ datos.factura.total.toFixed(2) }}</span>
+        <span>Bs {{ datos.venta.total }}</span>
       </div>
 
       <div class="dashed"></div>

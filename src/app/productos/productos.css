@@ -15,7 +15,7 @@
   display: flex;
   align-items: center;
   gap: 8px;
- background: linear-gradient(155deg,  #cacbba, #f8f9ef);
+ background: linear-gradient(155deg, #2f3a598d, #2f3a598d);
   border-radius: 12px;
   padding: 12px 14px;
 }
@@ -121,7 +121,7 @@
   background: rgba(97, 138, 225, 0.56);
   border: none;
   border-radius: 8px;
-  width: 32px;
+  width: 42px;
   height: 32px;
   cursor: pointer;
 }
@@ -161,7 +161,7 @@
 }
 
 .modal {
-  background: #ffffff;
+  background: rgba(20, 27, 46, 0.792);
   border-radius: 20px;
   padding: 28px;
   width: 100%;
@@ -189,7 +189,7 @@
 .close-btn {
   background: none;
   border: none;
-  color: #8b93a7;
+  color: #fdfdff;
   font-size: 1.1rem;
   cursor: pointer;
 }
@@ -202,11 +202,11 @@
 
 .modal input,
 .modal select {
-  background: #fbfaf7;
+  background: #585858c3;
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 10px;
-  padding: 12px 14px;
-  color: #ffffff;
+  padding: 12px 1px;
+  color: #fff7f7;
   font-size: 0.95rem;
   outline: none;
   width: 100%;
@@ -257,4 +257,13 @@
 .btn-save {
   background: #4c7cf0;
   color: #fff;
+}
+
+.error-msg {
+  background: rgba(239, 91, 91, 0.12);
+  color: #ef5b5b;
+  border-radius: 10px;
+  padding: 10px 12px;
+  font-size: 0.85rem;
+  margin: 0;
 }

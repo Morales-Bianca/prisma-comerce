@@ -2,38 +2,46 @@
   <h1>Configuración</h1>
   <p class="subtitle">Datos del negocio y preferencias del sistema</p>
 
+  @if (cargando()) {
+    <p class="hint">Cargando...</p>
+  }
+
+  @if (error()) {
+    <p class="error-msg">{{ error() }}</p>
+  }
+
   <div class="card">
     <h2>Datos del negocio</h2>
     <p class="hint">Esta información aparece en las facturas.</p>
 
     <label>Nombre del negocio</label>
-    <input type="text" [(ngModel)]="negocio.nombre" placeholder="Mercado Central" />
+    <input type="text" [(ngModel)]="config.nombre_negocio" placeholder="Mercado Central" />
 
     <label>Dirección</label>
-    <input type="text" [(ngModel)]="negocio.direccion" placeholder="Av. Principal #123" />
+    <input type="text" [(ngModel)]="config.direccion" placeholder="Av. Principal #123" />
 
     <label>Teléfono</label>
-    <input type="text" [(ngModel)]="negocio.telefono" placeholder="70000000" />
+    <input type="text" [(ngModel)]="config.telefono" placeholder="70000000" />
 
     <label>NIT</label>
-    <input type="text" [(ngModel)]="negocio.nit" placeholder="1234567890" />
+    <input type="text" [(ngModel)]="config.nit" placeholder="1234567890" />
   </div>
 
   <div class="card">
     <h2>Preferencias del sistema</h2>
 
     <label>Moneda</label>
-    <select [(ngModel)]="preferencias.moneda">
+    <select [(ngModel)]="config.moneda">
       @for (m of monedas; track m) {
         <option [value]="m">{{ m }}</option>
       }
     </select>
 
     <label>Alertar cuando el stock sea menor o igual a</label>
-    <input type="number" [(ngModel)]="preferencias.alertaStockBajo" />
+    <input type="number" [(ngModel)]="config.alerta_stock_bajo" />
 
     <label class="checkbox-row">
-      <input type="checkbox" [(ngModel)]="preferencias.emitirFacturaPorDefecto" />
+      <input type="checkbox" [(ngModel)]="config.emitir_factura_default" />
       Marcar "Emitir factura" por defecto en cada venta
     </label>
   </div>

@@ -71,3 +71,12 @@
   font-size: 0.9rem;
   margin-top: 12px;
 }
+
+.error-msg {
+  background: rgba(239, 91, 91, 0.12);
+  color: #ef5b5b;
+  border-radius: 10px;
+  padding: 10px 12px;
+  font-size: 0.85rem;
+  margin: 0 0 12px;
+}

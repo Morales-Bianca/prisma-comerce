@@ -1,8 +1,11 @@
 <div class="productos">
   <h1>Productos</h1>
   <div class="top-row">
-
-   <button class="btn-add" (click)="abrirModalAgregar()">+ Agregar producto</button>
+    <div class="search-box">
+      <span class="search-icon"></span>
+      <input type="text" placeholder="Buscar por nombre o código de barras" (input)="onBuscar($event)" />
+    </div>
+    <button class="btn-add" (click)="abrirModalAgregar()">+ Agregar producto</button>
   </div>
 
   <div class="filters">
@@ -18,6 +21,10 @@
     }
   </div>
 
+  @if (cargando()) {
+    <p class="hint">Cargando productos...</p>
+  }
+
   <div class="table-card">
     <div class="table-header">
       <span>Producto</span>
@@ -27,17 +34,17 @@
       <span></span>
     </div>
 
-    @for (p of productosFiltrados(); track p.codigo) {
+    @for (p of productosFiltrados(); track p.id) {
       <div class="table-row">
         <span class="nombre">{{ p.nombre }}</span>
-        <span class="codigo">{{ p.codigo }}</span>
-        <span class="precio">Bs {{ p.precio.toFixed(2) }}</span>
+        <span class="codigo">{{ p.codigo_barras }}</span>
+        <span class="precio">Bs {{ p.precio_venta }}</span>
         <span class="stock" [class.danger]="esStockBajo(p)">{{ stockLabel(p) }}</span>
-        <button class="edit-btn" (click)="abrirModalEditar(p)">+</button>
+        <button class="edit-btn" (click)="abrirModalEditar(p)">editar</button>
       </div>
     }
 
-    @if (productosFiltrados().length === 0) {
+    @if (!cargando() && productosFiltrados().length === 0) {
       <div class="empty">No se encontraron productos.</div>
     }
   </div>
@@ -51,21 +58,25 @@
         <button class="close-btn" (click)="cerrarModal()">✕</button>
       </div>
 
+      @if (error()) {
+        <p class="error-msg">{{ error() }}</p>
+      }
+
       <label>Nombre del producto</label>
       <input type="text" [(ngModel)]="nuevoProducto.nombre" placeholder="Coca-Cola 2L" />
 
       <label>Código de barras</label>
       <div class="row-inline">
-        <input type="text" [(ngModel)]="nuevoProducto.codigo" placeholder="Escanea o escribe el código" />
+        <input type="text" [(ngModel)]="nuevoProducto.codigo_barras" placeholder="Escanea o escribe el código" />
         <button class="btn-scan">📷 Escanear</button>
       </div>
 
       <div class="row-2">
         <div>
           <label>Categoría</label>
-          <select [(ngModel)]="nuevoProducto.categoria">
-            @for (c of categorias; track c) {
-              <option [value]="c">{{ c }}</option>
+          <select [(ngModel)]="nuevoProducto.categoria_id">
+            @for (c of categorias(); track c.id) {
+              <option [value]="c.id">{{ c.nombre }}</option>
             }
           </select>
         </div>
@@ -82,11 +93,11 @@
       <div class="row-2">
         <div>
           <label>Precio de venta (Bs)</label>
-          <input type="number" [(ngModel)]="nuevoProducto.precio" placeholder="12.50" />
+          <input type="number" [(ngModel)]="nuevoProducto.precio_venta" placeholder="12.50" />
         </div>
         <div>
           <label>Precio de compra (Bs)</label>
-          <input type="number" [(ngModel)]="nuevoProducto.precioCompra" placeholder="9.00" />
+          <input type="number" [(ngModel)]="nuevoProducto.precio_compra" placeholder="9.00" />
         </div>
       </div>
 
@@ -97,13 +108,16 @@
         </div>
         <div>
           <label>Stock mínimo (alerta)</label>
-          <input type="number" [(ngModel)]="nuevoProducto.stockMinimo" placeholder="5" />
+          <input type="number" [(ngModel)]="nuevoProducto.stock_minimo" placeholder="5" />
         </div>
       </div>
 
       <div class="modal-actions">
         <button class="btn-cancel" (click)="cerrarModal()">Cancelar</button>
-<button class="btn-save" (click)="guardarProducto()">{{ modoEdicion() ? 'Guardar cambios' : 'Guardar producto' }}</button>      </div>
+        <button class="btn-save" (click)="guardarProducto()">
+          {{ modoEdicion() ? 'Guardar cambios' : 'Guardar producto' }}
+        </button>
+      </div>
     </div>
   </div>
 }

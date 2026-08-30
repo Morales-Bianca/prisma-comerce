@@ -1,7 +1,32 @@
-import { Component, signal, computed } from '@angular/core';
+import { Component, signal, computed, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DataService, Factura, ItemVenta, VentaRegistrada } from '../data.service';
+import { HttpClient } from '@angular/common/http';
 
+interface ItemVenta {
+  nombre: string;
+  cantidad: number;
+  precio_unitario: number;
+}
+
+interface Factura {
+  numero: string;
+  fecha: string;
+  documento?: string;
+}
+
+interface VentaConFactura {
+  id: number;
+  fecha: string;
+  cliente_nombre: string;
+  cliente_documento: string;
+  metodo_pago: string;
+  total: string;
+  con_factura: boolean;
+  items: ItemVenta[];
+  factura: Factura | null;
+}
+
+const API_URL = 'http://localhost:3000/api';
 
 @Component({
   selector: 'app-facturas',
@@ -10,22 +35,40 @@ import { DataService, Factura, ItemVenta, VentaRegistrada } from '../data.servic
   templateUrl: './facturas.html',
   styleUrl: './facturas.css'
 })
-export class Facturas {
+export class Facturas implements OnInit {
   filtro = signal<'Todas' | 'Con factura' | 'Sin factura'>('Todas');
-  facturaVer = signal<{ factura: Factura; items: ItemVenta[] } | null>(null);
   filtros: ('Todas' | 'Con factura' | 'Sin factura')[] = ['Todas', 'Con factura', 'Sin factura'];
+  facturaVer = signal<{ venta: VentaConFactura } | null>(null);
+  cargando = signal(false);
 
-    ventas;
+  ventas = signal<VentaConFactura[]>([]);
 
-  constructor(private dataService: DataService) {
-    this.ventas = this.dataService.ventas;
+  constructor(private http: HttpClient) {}
+
+  ngOnInit() {
+    this.cargarVentas();
   }
+
+  cargarVentas() {
+    this.cargando.set(true);
+    this.http.get<VentaConFactura[]>(`${API_URL}/ventas`).subscribe({
+      next: (data) => {
+        this.ventas.set(data);
+        this.cargando.set(false);
+      },
+      error: (err) => {
+        console.error('Error cargando ventas', err);
+        this.cargando.set(false);
+      },
+    });
+  }
+
   ventasFiltradas = computed(() => {
     const f = this.filtro();
     return this.ventas().filter(v => {
       if (f === 'Todas') return true;
-      if (f === 'Con factura') return v.conFactura;
-      return !v.conFactura;
+      if (f === 'Con factura') return v.con_factura;
+      return !v.con_factura;
     });
   });
 
@@ -33,14 +76,9 @@ export class Facturas {
     this.filtro.set(f);
   }
 
-  buscarFactura(venta: VentaRegistrada): Factura | undefined {
-    return this.dataService.facturas().find(f => f.ventaId === venta.id);
-  }
-
-  verFactura(venta: VentaRegistrada) {
-    const factura = this.buscarFactura(venta);
-    if (!factura) return;
-    this.facturaVer.set({ factura, items: venta.items });
+  verFactura(venta: VentaConFactura) {
+    if (!venta.factura) return;
+    this.facturaVer.set({ venta });
   }
 
   cerrarFactura() {

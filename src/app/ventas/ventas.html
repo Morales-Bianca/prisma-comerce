@@ -17,16 +17,16 @@
     <div class="table-card">
       <div class="table-header">
         <span>Producto</span>
-        <span>Proveedor</span>
+       <span>Categoría</span>
         <span>Precio</span>
         <span>Cantidad</span>
       </div>
 
-      @for (p of productosFiltrados(); track p.codigo) {
+           @for (p of productosFiltrados(); track p.id) {
         <div class="table-row">
           <span class="nombre">{{ p.nombre }}</span>
-          <span class="proveedor">{{ p.proveedor }}</span>
-          <span class="precio">Bs {{ p.precio.toFixed(2) }}</span>
+          <span class="proveedor">{{ p.categoria_nombre }}</span>
+          <span class="precio">Bs {{ p.precio_venta }}</span>
           <span class="qty-control">
             <button (click)="restar(p)">−</button>
             <span class="qty">{{ p.cantidad }}</span>
@@ -47,18 +47,13 @@
     <label>NIT, CI o pasaporte (opcional)</label>
     <input type="text" placeholder="Déjalo vacío si no lo pide" [(ngModel)]="clienteDocumento" />
 
-    @if (itemsEnCarrito().length === 0) {
-      <p class="hint">Agrega productos desde la lista.</p>
-    } @else {
-      <div class="carrito">
-        @for (p of itemsEnCarrito(); track p.codigo) {
+           @for (p of itemsEnCarrito(); track p.id) {
           <div class="carrito-item">
             <span>{{ p.cantidad }}× {{ p.nombre }}</span>
-            <span>Bs {{ (p.precio * p.cantidad).toFixed(2) }}</span>
+            <span>Bs {{ (p.precio_venta * p.cantidad).toFixed(2) }}</span>
           </div>
         }
-      </div>
-    }
+
 
     <div class="total-row">
       <span>Total</span>

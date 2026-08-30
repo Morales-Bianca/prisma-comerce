@@ -38,9 +38,9 @@
         <span class="concepto">{{ m.concepto }}</span>
         <span class="categoria">{{ m.categoria }}</span>
         <span class="hora">{{ m.fecha | date:'HH:mm' }}</span>
-        <span class="registrado">{{ m.registradoPor }}</span>
+               <span class="registrado">{{ m.registrado_por }}</span>
         <span class="monto" [class.ingreso]="m.tipo === 'Ingreso'" [class.egreso]="m.tipo === 'Egreso'">
-          {{ m.tipo === 'Ingreso' ? '+' : '-' }}Bs {{ m.monto.toFixed(2) }}
+          {{ m.tipo === 'Ingreso' ? '+' : '-' }}Bs {{ m.monto }}
         </span>
       </div>
     }
@@ -57,6 +57,9 @@
       <div class="modal-header">
         <h2>Registrar movimiento</h2>
         <button class="close-btn" (click)="cerrarModal()">✕</button>
+              @if (error()) {
+        <p class="error-msg">{{ error() }}</p>
+      }
       </div>
 
       <label>Tipo</label>
