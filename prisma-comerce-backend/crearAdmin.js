@@ -3,7 +3,7 @@ const pool = require('./db');
 
 async function crearAdmin() {
   const nombre = 'Bianca';
-  const contrasena = '123456'; // cámbiala luego por una más segura
+  const contrasena = '123456';
   const rol = 'Administrador';
 
   const claveHash = await bcrypt.hash(contrasena, 10);
