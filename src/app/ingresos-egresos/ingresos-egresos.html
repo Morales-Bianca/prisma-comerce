@@ -1,19 +1,21 @@
 <div class="ie">
    <h1>Ingresos y Egresos</h1>
-  <div class="stats-row">
-    <div class="stat">
-      <span class="stat-label">Ingresos hoy</span>
-      <span class="stat-value ingreso">Bs {{ ingresosHoy().toFixed(2) }}</span>
+    @if (esAdmin()) {
+    <div class="stats-row">
+      <div class="stat">
+        <span class="stat-label">Ingresos hoy</span>
+        <span class="stat-value ingreso">Bs {{ ingresosHoy().toFixed(2) }}</span>
+      </div>
+      <div class="stat">
+        <span class="stat-label">Egresos hoy</span>
+        <span class="stat-value egreso">Bs {{ egresosHoy().toFixed(2) }}</span>
+      </div>
+      <div class="stat">
+        <span class="stat-label">Saldo neto</span>
+        <span class="stat-value">Bs {{ saldoNeto().toFixed(2) }}</span>
+      </div>
     </div>
-    <div class="stat">
-      <span class="stat-label">Egresos hoy</span>
-      <span class="stat-value egreso">Bs {{ egresosHoy().toFixed(2) }}</span>
-    </div>
-    <div class="stat">
-      <span class="stat-label">Saldo neto</span>
-      <span class="stat-value">Bs {{ saldoNeto().toFixed(2) }}</span>
-    </div>
-  </div>
+  }
 
   <div class="top-row">
     <div class="filters">
@@ -30,7 +32,7 @@
       <span>Categoría</span>
       <span>Hora</span>
       <span>Registrado por</span>
-      <span>Monto</span>
+            <span>{{ esAdmin() ? 'Monto' : 'Tipo' }}</span>
     </div>
 
     @for (m of movimientosFiltrados(); track m.id) {
@@ -39,8 +41,12 @@
         <span class="categoria">{{ m.categoria }}</span>
         <span class="hora">{{ m.fecha | date:'HH:mm' }}</span>
                <span class="registrado">{{ m.registrado_por }}</span>
-        <span class="monto" [class.ingreso]="m.tipo === 'Ingreso'" [class.egreso]="m.tipo === 'Egreso'">
-          {{ m.tipo === 'Ingreso' ? '+' : '-' }}Bs {{ m.monto }}
+               <span class="monto" [class.ingreso]="m.tipo === 'Ingreso'" [class.egreso]="m.tipo === 'Egreso'">
+          @if (esAdmin()) {
+            {{ m.tipo === 'Ingreso' ? '+' : '-' }}Bs {{ m.monto }}
+          } @else {
+            {{ m.tipo }}
+          }
         </span>
       </div>
     }

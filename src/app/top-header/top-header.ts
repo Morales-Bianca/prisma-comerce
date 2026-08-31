@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-top-header',
@@ -11,4 +12,12 @@ import { RouterLink } from '@angular/router';
 export class TopHeader {
   @Input() title: string = '';
   @Input() titleLines: string[] = [];
+
+  constructor(private router: Router) {}
+
+  cerrarSesion() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('usuario');
+    this.router.navigate(['/login']);
+  }
 }

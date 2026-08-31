@@ -39,7 +39,7 @@ export class Usuarios implements OnInit {
     { seccion: 'Productos y stock', vendedor: false, administrador: true },
     { seccion: 'Entradas de Inventario', vendedor: true, administrador: true },
     { seccion: 'Facturas', vendedor: false, administrador: true },
-    { seccion: 'Ingresos y egresos', vendedor: false, administrador: true },
+    { seccion: 'Ingresos y egresos', vendedor: true, administrador: true },
     { seccion: 'Usuarios', vendedor: false, administrador: true },
     { seccion: 'Reportes', vendedor: false, administrador: true },
   ];

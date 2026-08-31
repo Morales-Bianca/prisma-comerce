@@ -39,6 +39,7 @@ export class IngresosEgresos implements OnInit {
   };
 
   movimientos = signal<Movimiento[]>([]);
+  esAdmin = signal(false);
   usuarioId: number;
 
   constructor(private http: HttpClient) {
@@ -46,7 +47,11 @@ export class IngresosEgresos implements OnInit {
     this.usuarioId = usuarioGuardado ? JSON.parse(usuarioGuardado).id : null;
   }
 
-  ngOnInit() {
+    ngOnInit() {
+    const usuarioGuardado = localStorage.getItem('usuario');
+    if (usuarioGuardado) {
+      this.esAdmin.set(JSON.parse(usuarioGuardado).rol === 'Administrador');
+    }
     this.cargarMovimientos();
   }
 

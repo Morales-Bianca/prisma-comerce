@@ -33,10 +33,8 @@
         <span class="badge" [class.si]="v.con_factura" [class.no]="!v.con_factura">
           {{ v.con_factura ? v.factura?.numero : 'Sin factura' }}
         </span>
-        <span>
-          @if (v.con_factura) {
-            <button class="ver-btn" (click)="verFactura(v)">Ver</button>
-          }
+                <span>
+          <button class="ver-btn" (click)="verFactura(v)">Ver</button>
         </span>
       </div>
     }
@@ -54,10 +52,12 @@
 
       <div class="ticket-brand">PRISMA COMERCE</div>
       <div class="ticket-sub">Sistema de Ventas - Micromercado</div>
-      <div class="ticket-sub">{{ datos.venta.factura?.fecha | date:'dd/MM/yy HH:mm:ss' }}</div>
+            <div class="ticket-sub">{{ datos.venta.fecha | date:'dd/MM/yy HH:mm:ss' }}</div>
 
       <div class="dashed"></div>
-      <div class="ticket-line">FACTURA {{ datos.venta.factura?.numero }}</div>
+      <div class="ticket-line">
+        {{ datos.venta.con_factura ? 'FACTURA ' + datos.venta.factura?.numero : 'DETALLE DE VENTA (sin factura)' }}
+      </div>
       <div class="ticket-line">Cliente: {{ datos.venta.cliente_nombre || 'Sin nombre' }}</div>
       @if (datos.venta.cliente_documento) {
         <div class="ticket-line">NIT/CI: {{ datos.venta.cliente_documento }}</div>

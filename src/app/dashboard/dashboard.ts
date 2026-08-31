@@ -1,5 +1,6 @@
 import { Component, OnInit, ElementRef, ViewChild, computed, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { title } from 'node:process';
 
 interface Acceso {
   path: string;
@@ -26,7 +27,7 @@ export class Dashboard implements OnInit {
     { path: 'entradas-inventario', icon: '', title: 'Entradas' },
     { path: 'productos', icon: '', title: 'Productos', soloAdmin: true },
     { path: 'facturas', icon: '', title: 'Facturas', soloAdmin: true },
-    { path: 'ingresos-egresos', icon: '', title: 'Ingresos', soloAdmin: true },
+    { path: 'ingresos-egresos', icon: '', title: 'Ingresos' },
     { path: 'usuarios', icon: '', title: 'Usuarios', soloAdmin: true },
     { path: 'reportes', icon: '', title: 'Reportes', soloAdmin: true },
     { path: 'configuracion', icon: '', title: 'Configuración', soloAdmin: true },

@@ -76,8 +76,7 @@ export class Facturas implements OnInit {
     this.filtro.set(f);
   }
 
-  verFactura(venta: VentaConFactura) {
-    if (!venta.factura) return;
+    verFactura(venta: VentaConFactura) {
     this.facturaVer.set({ venta });
   }
 
