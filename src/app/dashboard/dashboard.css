@@ -43,7 +43,7 @@
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background: rgba(68, 105, 238, 0.668);
+  background: rgba(169, 182, 231, 0.668);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -102,15 +102,15 @@
   flex-direction: column;
   align-items: center;
   gap: 14px;
-  padding: 60px 30px;
+  padding: 90px 30px;
   background: rgba(255, 255, 255, 0.07);
   border-radius: 20px;
   text-decoration: none;
 }
 
 .modulo-icon {
-  width: 42px;
-  height: 42px;
+  width: 60px;
+  height: 60px;
   border-radius: 12px;
   background: rgba(255, 255, 255, 0.119);
   display: flex;
@@ -126,7 +126,7 @@
 .modulo-title {
   font-weight: 700;
   color: #fff;
-  font-size: 0.92rem;
+  font-size: 1.5rem;
 }
 
 @media (max-width: 700px) {
