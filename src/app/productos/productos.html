@@ -77,7 +77,7 @@
       <label>Código de barras</label>
       <div class="row-inline">
         <input type="text" [(ngModel)]="nuevoProducto.codigo_barras" placeholder="Escanea o escribe el código" />
-        <button class="btn-scan">📷 Escanear</button>
+                <button class="btn-scan" type="button" (click)="abrirScanner()"> Escanear</button>
       </div>
 
       <div class="row-2">
@@ -139,6 +139,7 @@
         <button class="close-btn" (click)="cerrarModalMasivo()">✕</button>
       </div>
 
+
       <p class="hint">
         Pega una línea por producto, separando los datos con comas, en este orden:<br />
         <strong>nombre, código de barras, categoría, unidad, precio venta, precio compra, stock, stock mínimo</strong>
@@ -168,10 +169,19 @@
 Pan de molde, 7791234560029, Abarrotes, Unidad, 10.00, 7.00, 15, 5"
       ></textarea>
 
-      <div class="modal-actions">
+            <div class="modal-actions">
         <button class="btn-cancel" (click)="cerrarModalMasivo()">Cerrar</button>
         <button class="btn-save" (click)="cargarMasivo()">Cargar productos</button>
       </div>
     </div>
   </div>
 }
+
+@if (scannerAbierto()) {
+  <app-barcode-scanner
+    (codigoDetectado)="onCodigoEscaneado($event)"
+    (cerrar)="scannerAbierto.set(false)"
+  ></app-barcode-scanner>
+}
+
+

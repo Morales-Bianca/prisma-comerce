@@ -1,0 +1,60 @@
+.scanner-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  padding: 20px;
+}
+
+.scanner-box {
+  background: #141b2e;
+  border-radius: 20px;
+  padding: 20px;
+  width: 100%;
+  max-width: 420px;
+}
+
+.scanner-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.scanner-header h3 {
+  color: #f5f7fa;
+  margin: 0;
+  font-size: 1.05rem;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  color: #8b93a7;
+  font-size: 1.1rem;
+  cursor: pointer;
+}
+
+#barcode-reader {
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.hint {
+  color: #8b93a7;
+  font-size: 0.82rem;
+  text-align: center;
+  margin: 12px 0 0;
+}
+
+.error-msg {
+  background: rgba(239, 91, 91, 0.12);
+  color: #ef5b5b;
+  border-radius: 10px;
+  padding: 10px 12px;
+  font-size: 0.85rem;
+  margin: 0 0 10px;
+}

@@ -2,6 +2,9 @@ import { Component, signal, computed, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
+import { BarcodeScanner } from '../barcode-scanner/barcode-scanner';
+
+
 
 interface ProductoVenta {
   id: number;
@@ -26,12 +29,14 @@ const API_URL = 'http://localhost:3000/api';
 @Component({
   selector: 'app-ventas',
   standalone: true,
-  imports: [FormsModule, CommonModule],
+    imports: [FormsModule, CommonModule, BarcodeScanner],
+
   templateUrl: './ventas.html',
   styleUrl: './ventas.css'
 })
 export class Ventas implements OnInit {
   busquedaCodigo = signal('');
+  scannerAbierto = signal(false);
   busquedaNombre = signal('');
 
   clienteNombre = '';
@@ -90,6 +95,14 @@ export class Ventas implements OnInit {
     this.productos.update(lista =>
       lista.map(x => x.id === p.id ? { ...x, cantidad: Math.max(0, x.cantidad - 1) } : x)
     );
+  }
+    abrirScanner() {
+    this.scannerAbierto.set(true);
+  }
+
+  onCodigoEscaneado(codigo: string) {
+    this.busquedaCodigo.set(codigo);
+    this.scannerAbierto.set(false);
   }
 
   setMetodoPago(m: 'Efectivo' | 'QR' | 'Tarjeta') {

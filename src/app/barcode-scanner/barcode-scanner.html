@@ -1,0 +1,16 @@
+<div class="scanner-overlay" (click)="cerrarManual()">
+  <div class="scanner-box" (click)="$event.stopPropagation()">
+    <div class="scanner-header">
+      <h3>Escanea el código de barras</h3>
+      <button class="close-btn" (click)="cerrarManual()">✕</button>
+    </div>
+
+    @if (error) {
+      <p class="error-msg">{{ error }}</p>
+    }
+
+    <div id="barcode-reader"></div>
+
+    <p class="hint">Apunta la cámara al código de barras del producto.</p>
+  </div>
+</div>

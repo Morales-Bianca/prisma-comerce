@@ -3,82 +3,83 @@
 
   <div class="ventas">
     <div class="panel-izq">
-    <div class="buscadores">
-      <div class="search-box">
-        <span class="search-icon"> </span>
-        <input type="text" placeholder="Buscar por código" [(ngModel)]="busquedaCodigo" />
-      </div>
-      <div class="search-box">
-        <span class="search-icon"> </span>
-        <input type="text" placeholder="Buscar por nombre o proveedor" [(ngModel)]="busquedaNombre" />
-      </div>
-    </div>
-
-    <div class="table-card">
-      <div class="table-header">
-        <span>Producto</span>
-       <span>Categoría</span>
-        <span>Precio</span>
-        <span>Cantidad</span>
-      </div>
-
-           @for (p of productosFiltrados(); track p.id) {
-        <div class="table-row">
-          <span class="nombre">{{ p.nombre }}</span>
-          <span class="proveedor">{{ p.categoria_nombre }}</span>
-          <span class="precio">Bs {{ p.precio_venta }}</span>
-          <span class="qty-control">
-            <button (click)="restar(p)">−</button>
-            <span class="qty">{{ p.cantidad }}</span>
-            <button (click)="sumar(p)">+</button>
-          </span>
+      <div class="buscadores">
+        <div class="search-box">
+          <span class="search-icon"></span>
+          <input type="text" placeholder="Buscar por código" [(ngModel)]="busquedaCodigo" />
+          <button class="btn-scan-mini" type="button" (click)="abrirScanner()"> ⛶</button>
         </div>
-      }
-    </div>
-  </div>
+        <div class="search-box">
+          <span class="search-icon"> </span>
+          <input type="text" placeholder="Buscar por nombre o proveedor" [(ngModel)]="busquedaNombre" />
+        </div>
+      </div>
 
-  <div class="panel-der">
-    <h2>Venta actual</h2>
-    <p class="subtitle">Caja 1 · Bianca</p>
+      <div class="table-card">
+        <div class="table-header">
+          <span>Producto</span>
+          <span>Categoría</span>
+          <span>Precio</span>
+          <span>Cantidad</span>
+        </div>
 
-    <label>Nombre del cliente (opcional)</label>
-    <input type="text" placeholder="Para la factura" [(ngModel)]="clienteNombre" />
-
-    <label>NIT, CI o pasaporte (opcional)</label>
-    <input type="text" placeholder="Déjalo vacío si no lo pide" [(ngModel)]="clienteDocumento" />
-
-           @for (p of itemsEnCarrito(); track p.id) {
-          <div class="carrito-item">
-            <span>{{ p.cantidad }}× {{ p.nombre }}</span>
-            <span>Bs {{ (p.precio_venta * p.cantidad).toFixed(2) }}</span>
+        @for (p of productosFiltrados(); track p.id) {
+          <div class="table-row">
+            <span class="nombre">{{ p.nombre }}</span>
+            <span class="proveedor">{{ p.categoria_nombre }}</span>
+            <span class="precio">Bs {{ p.precio_venta }}</span>
+            <span class="qty-control">
+              <button (click)="restar(p)">−</button>
+              <span class="qty">{{ p.cantidad }}</span>
+              <button (click)="sumar(p)">+</button>
+            </span>
           </div>
         }
-
-
-    <div class="total-row">
-      <span>Total</span>
-      <span class="total-value">Bs {{ total().toFixed(2) }}</span>
+      </div>
     </div>
 
-    <label>Método de pago</label>
-    <div class="metodos">
-      <button class="metodo" [class.active]="metodoPago() === 'Efectivo'" (click)="setMetodoPago('Efectivo')">
-        💵<br />Efectivo
-      </button>
-      <button class="metodo" [class.active]="metodoPago() === 'QR'" (click)="setMetodoPago('QR')">
-        🔲<br />QR
-      </button>
-      <button class="metodo" [class.active]="metodoPago() === 'Tarjeta'" (click)="setMetodoPago('Tarjeta')">
-        💳<br />Tarjeta
-      </button>
+    <div class="panel-der">
+      <h2>Venta actual</h2>
+      <p class="subtitle">Caja 1 · Bianca</p>
+
+      <label>Nombre del cliente (opcional)</label>
+      <input type="text" placeholder="Para la factura" [(ngModel)]="clienteNombre" />
+
+      <label>NIT, CI o pasaporte (opcional)</label>
+      <input type="text" placeholder="Déjalo vacío si no lo pide" [(ngModel)]="clienteDocumento" />
+
+      @for (p of itemsEnCarrito(); track p.id) {
+        <div class="carrito-item">
+          <span>{{ p.cantidad }}× {{ p.nombre }}</span>
+          <span>Bs {{ (p.precio_venta * p.cantidad).toFixed(2) }}</span>
+        </div>
+      }
+
+      <div class="total-row">
+        <span>Total</span>
+        <span class="total-value">Bs {{ total().toFixed(2) }}</span>
+      </div>
+
+      <label>Método de pago</label>
+      <div class="metodos">
+        <button class="metodo" [class.active]="metodoPago() === 'Efectivo'" (click)="setMetodoPago('Efectivo')">
+          💵<br />Efectivo
+        </button>
+        <button class="metodo" [class.active]="metodoPago() === 'QR'" (click)="setMetodoPago('QR')">
+          🔲<br />QR
+        </button>
+        <button class="metodo" [class.active]="metodoPago() === 'Tarjeta'" (click)="setMetodoPago('Tarjeta')">
+          💳<br />Tarjeta
+        </button>
+      </div>
+
+      <label class="checkbox-row">
+        <input type="checkbox" [(ngModel)]="emitirFactura" />
+        Emitir factura para imprimir
+      </label>
+
+      <button class="btn-cobrar" (click)="cobrar()">Cobrar</button>
     </div>
-
-    <label class="checkbox-row">
-      <input type="checkbox" [(ngModel)]="emitirFactura" />
-      Emitir factura para imprimir
-    </label>
-
-    <button class="btn-cobrar" (click)="cobrar()">Cobrar</button>
   </div>
 </div>
 
@@ -130,4 +131,11 @@
       </div>
     </div>
   </div>
+}
+
+@if (scannerAbierto()) {
+  <app-barcode-scanner
+    (codigoDetectado)="onCodigoEscaneado($event)"
+    (cerrar)="scannerAbierto.set(false)"
+  ></app-barcode-scanner>
 }

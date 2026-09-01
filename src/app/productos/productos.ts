@@ -1,6 +1,7 @@
 import { Component, signal, computed, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
+import { BarcodeScanner } from '../barcode-scanner/barcode-scanner';
 
 interface Categoria {
   id: number;
@@ -25,7 +26,7 @@ const API_URL = 'http://localhost:3000/api';
 @Component({
   selector: 'app-productos',
   standalone: true,
-  imports: [FormsModule],
+   imports: [FormsModule, BarcodeScanner],
   templateUrl: './productos.html',
   styleUrl: './productos.css'
 })
@@ -34,6 +35,7 @@ export class Productos implements OnInit {
   busqueda = signal('');
   ordenCategoria = signal(false);
   modalAbierto = signal(false);
+  scannerAbierto = signal(false);
   modoEdicion = signal(false);
   idEnEdicion: number | null = null;
   cargando = signal(false);
@@ -149,14 +151,13 @@ export class Productos implements OnInit {
     this.modalAbierto.set(false);
   }
 
-  guardarProducto() {
+    guardarProducto() {
     if (!this.nuevoProducto.nombre.trim()) {
       this.error.set('El nombre es obligatorio.');
       return;
     }
 
     this.error.set('');
-
     if (this.modoEdicion() && this.idEnEdicion != null) {
       this.http.put(`${API_URL}/productos/${this.idEnEdicion}`, this.nuevoProducto).subscribe({
         next: () => {
@@ -184,6 +185,14 @@ export class Productos implements OnInit {
       next: () => this.cargarProductos(),
       error: (err) => alert(err.error?.error || 'No se pudo eliminar el producto.'),
     });
+  }
+    abrirScanner() {
+    this.scannerAbierto.set(true);
+  }
+
+  onCodigoEscaneado(codigo: string) {
+    this.nuevoProducto.codigo_barras = codigo;
+    this.scannerAbierto.set(false);
   }
 
   abrirModalMasivo() {
