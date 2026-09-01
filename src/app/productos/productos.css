@@ -118,7 +118,7 @@
 }
 
 .edit-btn {
-  background: rgba(97, 138, 225, 0.56);
+  background: rgba(255, 255, 255, 0.529);
   border: none;
   border-radius: 8px;
   width: 42px;
@@ -296,3 +296,19 @@
   font-size: 0.85rem;
   margin: 0;
 }
+
+.acciones {
+  display: flex;
+  gap: 6px;
+}
+
+.delete-btn {
+  background: rgba(239, 91, 91, 0.15);
+  color: #ef5b5b;
+  border: none;
+  border-radius: 8px;
+  width: 56px;
+  height: 32px;
+  cursor: pointer;
+}
+

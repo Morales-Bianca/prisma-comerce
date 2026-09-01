@@ -46,7 +46,10 @@
         <span class="codigo">{{ p.codigo_barras }}</span>
         <span class="precio">Bs {{ p.precio_venta }}</span>
         <span class="stock" [class.danger]="esStockBajo(p)">{{ stockLabel(p) }}</span>
-        <button class="edit-btn" (click)="abrirModalEditar(p)">editar</button>
+               <span class="acciones">
+          <button class="edit-btn" (click)="abrirModalEditar(p)">editar</button>
+          <button class="delete-btn" (click)="eliminarProducto(p)"> eliminar</button>
+        </span>
       </div>
     }
 

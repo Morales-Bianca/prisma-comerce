@@ -11,6 +11,7 @@ const usuariosRoutes = require('./routes/usuarios');
 const configuracionRoutes = require('./routes/configuracion');
 const entradasRoutes = require('./routes/entradas');
 const salidasRoutes = require('./routes/salidas');
+const facturasRoutes = require('./routes/facturas');
 
 const app = express();
 app.use(cors());
@@ -24,6 +25,7 @@ app.use('/api/usuarios', usuariosRoutes);
 app.use('/api/configuracion', configuracionRoutes);
 app.use('/api/entradas', entradasRoutes);
 app.use('/api/salidas', salidasRoutes);
+app.use('/api/facturas', facturasRoutes);
 
 app.get('/api/ping', async (req, res) => {
   try {

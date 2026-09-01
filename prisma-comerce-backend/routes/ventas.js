@@ -96,5 +96,41 @@ router.post('/', async (req, res) => {
     client.release();
   }
 });
+// ELIMINAR venta completa (detalle, factura si existe, movimiento de caja, y revierte el stock)
+router.delete('/:id', async (req, res) => {
+  const { id } = req.params;
+  const client = await pool.connect();
+
+  try {
+    await client.query('BEGIN');
+
+    const ventaResult = await client.query('SELECT * FROM ventas WHERE id = $1', [id]);
+    if (ventaResult.rows.length === 0) {
+      await client.query('ROLLBACK');
+      return res.status(404).json({ error: 'Venta no encontrada.' });
+    }
+
+    const detalle = await client.query('SELECT * FROM detalle_ventas WHERE venta_id = $1', [id]);
+
+    // Revertir el stock de cada producto vendido
+    for (const item of detalle.rows) {
+      await client.query('UPDATE productos SET stock = stock + $1 WHERE id = $2', [item.cantidad, item.producto_id]);
+    }
+
+    await client.query('DELETE FROM detalle_ventas WHERE venta_id = $1', [id]);
+    await client.query('DELETE FROM facturas WHERE venta_id = $1', [id]);
+    await client.query(`DELETE FROM movimientos_caja WHERE concepto = $1`, [`Venta #${id}`]);
+    await client.query('DELETE FROM ventas WHERE id = $1', [id]);
+
+    await client.query('COMMIT');
+    res.json({ mensaje: 'Venta eliminada y stock revertido.' });
+  } catch (error) {
+    await client.query('ROLLBACK');
+    console.error(error);
+    res.status(500).json({ error: 'Error al eliminar la venta.' });
+  } finally {
+    client.release();
+  }
+});
 
 module.exports = router;

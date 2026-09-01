@@ -33,8 +33,9 @@
         <span class="badge" [class.si]="v.con_factura" [class.no]="!v.con_factura">
           {{ v.con_factura ? v.factura?.numero : 'Sin factura' }}
         </span>
-                <span>
+          <span class="acciones">
           <button class="ver-btn" (click)="verFactura(v)">Ver</button>
+          <button class="delete-btn" (click)="eliminarVenta(v)">eliminar</button>
         </span>
       </div>
     }

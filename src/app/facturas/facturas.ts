@@ -9,6 +9,7 @@ interface ItemVenta {
 }
 
 interface Factura {
+  id: number;
   numero: string;
   fecha: string;
   documento?: string;
@@ -82,6 +83,20 @@ export class Facturas implements OnInit {
 
   cerrarFactura() {
     this.facturaVer.set(null);
+  }
+
+      eliminarVenta(venta: VentaConFactura) {
+    const confirmacion = confirm(
+      `¿Seguro que quieres eliminar esta venta por completo (Bs ${venta.total})? Esto revierte el stock y no se puede deshacer.`
+    );
+    if (!confirmacion) return;
+
+    this.http.delete(`${API_URL}/ventas/${venta.id}`).subscribe({
+      next: () => this.cargarVentas(),
+      error: (err) => alert(err.error?.error || 'No se pudo eliminar la venta.'),
+    });
+
+
   }
 
   imprimir() {

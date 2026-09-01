@@ -1,1 +1,22 @@
-/* You can add global styles to this file, and also import other style files */
+@media print {
+  body *:not(:has(.modal-overlay)):not(.modal-overlay):not(.modal-overlay *) {
+    display: none !important;
+  }
+
+  .modal-overlay {
+    position: static !important;
+    background: #fff !important;
+    padding: 0 !important;
+    display: flex !important;
+  }
+
+  .ticket {
+    width: 100% !important;
+    max-width: 320px !important;
+    margin: 0 auto;
+  }
+
+  .no-print {
+    display: none !important;
+  }
+}

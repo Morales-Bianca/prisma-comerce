@@ -176,6 +176,16 @@ export class Productos implements OnInit {
     }
   }
 
+  eliminarProducto(p: Producto) {
+    if (!p.id) return;
+    if (!confirm(`¿Seguro que quieres eliminar "${p.nombre}"? Esta acción no se puede deshacer.`)) return;
+
+    this.http.delete(`${API_URL}/productos/${p.id}`).subscribe({
+      next: () => this.cargarProductos(),
+      error: (err) => alert(err.error?.error || 'No se pudo eliminar el producto.'),
+    });
+  }
+
   abrirModalMasivo() {
     this.textoMasivo = '';
     this.resultadoMasivo.set(null);
