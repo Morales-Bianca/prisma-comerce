@@ -91,9 +91,21 @@ export class Dashboard implements OnInit {
     }
   }
 
-  mover(direccion: number) {
+    mover(direccion: number) {
     const el = this.fila.nativeElement;
     const anchoTarjeta = el.querySelector('.modulo')?.clientWidth ?? 150;
-    el.scrollBy({ left: direccion * (anchoTarjeta + 14), behavior: 'smooth' });
+    const paso = anchoTarjeta + 14;
+    const maxScroll = el.scrollWidth - el.clientWidth;
+
+    if (direccion > 0 && el.scrollLeft >= maxScroll - 5) {
+      // Ya llegó al final, vuelve al principio
+      el.scrollTo({ left: 0, behavior: 'smooth' });
+    } else if (direccion < 0 && el.scrollLeft <= 5) {
+      // Ya está al principio, salta al final
+      el.scrollTo({ left: maxScroll, behavior: 'smooth' });
+    } else {
+      el.scrollBy({ left: direccion * paso, behavior: 'smooth' });
+    }
   }
-}
+  }
+
