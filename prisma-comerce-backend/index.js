@@ -10,18 +10,20 @@ const movimientosRoutes = require('./routes/movimientos');
 const usuariosRoutes = require('./routes/usuarios');
 const configuracionRoutes = require('./routes/configuracion');
 const entradasRoutes = require('./routes/entradas');
+const salidasRoutes = require('./routes/salidas');
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 app.use('/api/categorias', categoriasRoutes);
-app.use('/api/productos', productosRoutes); 
+app.use('/api/productos', productosRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/ventas', ventasRoutes);
 app.use('/api/movimientos', movimientosRoutes);
 app.use('/api/usuarios', usuariosRoutes);
 app.use('/api/configuracion', configuracionRoutes);
 app.use('/api/entradas', entradasRoutes);
+app.use('/api/salidas', salidasRoutes);
 
 app.get('/api/ping', async (req, res) => {
   try {

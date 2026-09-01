@@ -99,7 +99,7 @@
 .table-header,
 .table-row {
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr;
+  grid-template-columns: 2fr 1.3fr 1.3fr 1fr;
   align-items: center;
   padding: 14px 18px;
   gap: 8px;
@@ -126,4 +126,57 @@
   padding: 24px;
   text-align: center;
   color: #6b7386;
+}
+
+.top-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.top-row .section-title {
+  margin: 0;
+}
+
+.search-box {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #141b2e;
+  border-radius: 12px;
+  padding: 10px 14px;
+  width: 220px;
+}
+
+.search-icon {
+  opacity: 0.6;
+}
+
+.search-box input {
+  flex: 1;
+  background: none;
+  border: none;
+  outline: none;
+  color: #f5f7fa;
+  font-size: 0.9rem;
+}
+
+.search-box input::placeholder {
+  color: #6b7386;
+}
+
+.ordenable {
+  cursor: pointer;
+  user-select: none;
+}
+
+.ordenable:hover {
+  color: #f5f7fa;
+}
+
+.salidas {
+  color: #ef5b5b;
+  font-size: 0.9rem;
 }

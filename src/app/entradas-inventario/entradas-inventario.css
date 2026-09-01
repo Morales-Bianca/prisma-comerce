@@ -5,7 +5,7 @@
 
 .subtitle {
   color: #e9ecf4;
-  margin: 0 0 60px;
+  margin: 0 0 40px;
 }
 
 .card {
@@ -16,6 +16,7 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
+
 }
 
 .card h2 {
@@ -72,7 +73,7 @@
 .section-title {
   color: #f5f7fa;
   font-size: 1.05rem;
-  margin: 0 0 14px;
+  margin: 0 0 20px;
 }
 
 .table-card {
@@ -80,6 +81,7 @@
 
   border-radius: 16px;
   overflow: hidden;
+  margin: 0 0 40px;
 }
 
 .table-header,
@@ -136,4 +138,8 @@
   .origen { grid-area: origen; }
   .registrado { grid-area: registrado; }
   .fecha { grid-area: fecha; }
+}
+.cantidad-salida {
+  color: #ef5b5b;
+  font-weight: 700;
 }

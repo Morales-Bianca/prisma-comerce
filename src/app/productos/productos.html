@@ -6,6 +6,7 @@
       <input type="text" placeholder="Buscar por nombre o código de barras" (input)="onBuscar($event)" />
     </div>
     <button class="btn-add" (click)="abrirModalAgregar()">+ Agregar producto</button>
+    <button class="btn-add btn-masivo" (click)="abrirModalMasivo()"> Carga masiva</button>
   </div>
 
   <div class="filters">
@@ -19,6 +20,9 @@
         {{ f }}
       </button>
     }
+    <button class="chip" [class.active]="ordenCategoria()" (click)="toggleOrdenCategoria()">
+      Ordenar por categoría
+    </button>
   </div>
 
   @if (cargando()) {
@@ -28,6 +32,7 @@
   <div class="table-card">
     <div class="table-header">
       <span>Producto</span>
+      <span>Categoría</span>
       <span>Código</span>
       <span>Precio</span>
       <span>Stock</span>
@@ -37,6 +42,7 @@
     @for (p of productosFiltrados(); track p.id) {
       <div class="table-row">
         <span class="nombre">{{ p.nombre }}</span>
+        <span class="categoria">{{ p.categoria_nombre || '—' }}</span>
         <span class="codigo">{{ p.codigo_barras }}</span>
         <span class="precio">Bs {{ p.precio_venta }}</span>
         <span class="stock" [class.danger]="esStockBajo(p)">{{ stockLabel(p) }}</span>
@@ -117,6 +123,51 @@
         <button class="btn-save" (click)="guardarProducto()">
           {{ modoEdicion() ? 'Guardar cambios' : 'Guardar producto' }}
         </button>
+      </div>
+    </div>
+  </div>
+}
+
+@if (modalMasivoAbierto()) {
+  <div class="modal-overlay" (click)="cerrarModalMasivo()">
+    <div class="modal modal-ancho" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h2>Carga masiva de productos</h2>
+        <button class="close-btn" (click)="cerrarModalMasivo()">✕</button>
+      </div>
+
+      <p class="hint">
+        Pega una línea por producto, separando los datos con comas, en este orden:<br />
+        <strong>nombre, código de barras, categoría, unidad, precio venta, precio compra, stock, stock mínimo</strong>
+      </p>
+      <p class="hint">
+        Ejemplo:<br />
+        Coca-Cola 2L, 7791234560012, Bebidas, Unidad, 12.50, 9.00, 20, 5
+      </p>
+
+      @if (errorMasivo()) {
+        <p class="error-msg">{{ errorMasivo() }}</p>
+      }
+
+      @if (resultadoMasivo()) {
+        <p class="exito-msg">
+          ✓ {{ resultadoMasivo()!.creados }} productos creados.
+          @if (resultadoMasivo()!.errores.length > 0) {
+            {{ resultadoMasivo()!.errores.length }} filas con errores: {{ resultadoMasivo()!.errores.join(' | ') }}
+          }
+        </p>
+      }
+
+      <textarea
+        [(ngModel)]="textoMasivo"
+        rows="10"
+        placeholder="Coca-Cola 2L, 7791234560012, Bebidas, Unidad, 12.50, 9.00, 20, 5
+Pan de molde, 7791234560029, Abarrotes, Unidad, 10.00, 7.00, 15, 5"
+      ></textarea>
+
+      <div class="modal-actions">
+        <button class="btn-cancel" (click)="cerrarModalMasivo()">Cerrar</button>
+        <button class="btn-save" (click)="cargarMasivo()">Cargar productos</button>
       </div>
     </div>
   </div>

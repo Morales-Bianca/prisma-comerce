@@ -1,5 +1,6 @@
 import { Component, OnInit, computed, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 
 interface ItemVenta {
@@ -15,23 +16,36 @@ interface Venta {
   items: ItemVenta[];
 }
 
+interface Salida {
+  producto_nombre: string;
+  cantidad: number;
+}
+
+type ColumnaOrden = 'nombre' | 'unidades' | 'ingresos' | 'salidas';
+
 const API_URL = 'http://localhost:3000/api';
 
 @Component({
   selector: 'app-reportes',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './reportes.html',
   styleUrl: './reportes.css'
 })
 export class Reportes implements OnInit {
   ventas = signal<Venta[]>([]);
+  salidas = signal<Salida[]>([]);
   cargando = signal(false);
+
+  busquedaProducto = signal('');
+  ordenColumna = signal<ColumnaOrden>('unidades');
+  ordenAscendente = signal(false);
 
   constructor(private http: HttpClient) {}
 
   ngOnInit() {
     this.cargarVentas();
+    this.cargarSalidas();
   }
 
   cargarVentas() {
@@ -46,6 +60,27 @@ export class Reportes implements OnInit {
         this.cargando.set(false);
       },
     });
+  }
+
+  cargarSalidas() {
+    this.http.get<Salida[]>(`${API_URL}/salidas`).subscribe({
+      next: (data) => this.salidas.set(data),
+      error: (err) => console.error('Error cargando salidas', err),
+    });
+  }
+
+  onBuscarProducto(event: Event) {
+    const input = event.target as HTMLInputElement;
+    this.busquedaProducto.set(input.value);
+  }
+
+  ordenarPor(columna: ColumnaOrden) {
+    if (this.ordenColumna() === columna) {
+      this.ordenAscendente.update(v => !v);
+    } else {
+      this.ordenColumna.set(columna);
+      this.ordenAscendente.set(false);
+    }
   }
 
   private ultimos7Dias(): Date[] {
@@ -66,8 +101,6 @@ export class Reportes implements OnInit {
       .reduce((sum, v) => sum + Number(v.total), 0);
   });
 
-  // Nota: la ganancia real necesita el precio de compra de cada producto.
-  // Por ahora se estima con un margen aproximado del 30% sobre el total vendido.
   gananciaEstimada = computed(() => this.ventasSemana() * 0.3);
 
   ticketPromedio = computed(() => {
@@ -92,6 +125,14 @@ export class Reportes implements OnInit {
     return datos.map(d => ({ ...d, porcentaje: (d.total / max) * 100 }));
   });
 
+  private salidasPorProducto = computed(() => {
+    const mapa = new Map<string, number>();
+    for (const s of this.salidas()) {
+      mapa.set(s.producto_nombre, (mapa.get(s.producto_nombre) ?? 0) + s.cantidad);
+    }
+    return mapa;
+  });
+
   productosMasVendidos = computed(() => {
     const acumulado = new Map<string, { unidades: number; ingresos: number }>();
 
@@ -104,9 +145,25 @@ export class Reportes implements OnInit {
       }
     }
 
-    return Array.from(acumulado.entries())
-      .map(([nombre, datos]) => ({ nombre, ...datos }))
-      .sort((a, b) => b.unidades - a.unidades)
-      .slice(0, 8);
+    let lista = Array.from(acumulado.entries()).map(([nombre, datos]) => ({
+      nombre,
+      ...datos,
+      salidas: this.salidasPorProducto().get(nombre) ?? 0,
+    }));
+
+    const texto = this.busquedaProducto().toLowerCase();
+    if (texto) {
+      lista = lista.filter(p => p.nombre.toLowerCase().includes(texto));
+    }
+
+    const columna = this.ordenColumna();
+    const asc = this.ordenAscendente() ? 1 : -1;
+
+    lista.sort((a, b) => {
+      if (columna === 'nombre') return a.nombre.localeCompare(b.nombre) * asc;
+      return (a[columna] - b[columna]) * asc;
+    });
+
+    return lista;
   });
 }

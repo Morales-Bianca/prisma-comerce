@@ -1,9 +1,10 @@
 
-<div class="reportes">
-  <h1>Reportes</h1>
-    @if (cargando()) {
+ <div class="reportes">
+   <h1>Reportes</h1>
+  @if (cargando()) {
     <p class="hint">Cargando reportes...</p>
   }
+
   <div class="stats-row">
     <div class="stat">
       <span class="stat-label">Ventas de la semana</span>
@@ -34,24 +35,41 @@
     </div>
   </div>
 
-  <h2 class="section-title">Productos más vendidos</h2>
+  <div class="top-row">
+    <h2 class="section-title">Productos más vendidos</h2>
+    <div class="search-box">
+      <span class="search-icon">🔍</span>
+      <input type="text" placeholder="Buscar producto..." (input)="onBuscarProducto($event)" />
+    </div>
+  </div>
+
   <div class="table-card">
     <div class="table-header">
-      <span>Producto</span>
-      <span>Unidades</span>
-      <span>Ingresos</span>
+      <span class="ordenable" (click)="ordenarPor('nombre')">
+        Producto {{ ordenColumna() === 'nombre' ? (ordenAscendente() ? '▲' : '▼') : '' }}
+      </span>
+      <span class="ordenable" (click)="ordenarPor('unidades')">
+        Unidades vendidas {{ ordenColumna() === 'unidades' ? (ordenAscendente() ? '▲' : '▼') : '' }}
+      </span>
+      <span class="ordenable" (click)="ordenarPor('salidas')">
+        Salidas (mermas, etc.) {{ ordenColumna() === 'salidas' ? (ordenAscendente() ? '▲' : '▼') : '' }}
+      </span>
+      <span class="ordenable" (click)="ordenarPor('ingresos')">
+        Ingresos {{ ordenColumna() === 'ingresos' ? (ordenAscendente() ? '▲' : '▼') : '' }}
+      </span>
     </div>
 
     @for (p of productosMasVendidos(); track p.nombre) {
       <div class="table-row">
         <span class="nombre">{{ p.nombre }}</span>
         <span class="unidades">{{ p.unidades }}</span>
+        <span class="salidas">{{ p.salidas > 0 ? '-' + p.salidas : '—' }}</span>
         <span class="ingresos">Bs {{ p.ingresos.toFixed(2) }}</span>
       </div>
     }
 
     @if (productosMasVendidos().length === 0) {
-      <div class="empty">Todavía no hay ventas registradas.</div>
+      <div class="empty">No se encontraron productos.</div>
     }
   </div>
 </div>

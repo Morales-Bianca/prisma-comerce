@@ -32,11 +32,17 @@ const API_URL = 'http://localhost:3000/api';
 export class Productos implements OnInit {
   filtroActivo = signal('Todos');
   busqueda = signal('');
+  ordenCategoria = signal(false);
   modalAbierto = signal(false);
   modoEdicion = signal(false);
   idEnEdicion: number | null = null;
   cargando = signal(false);
   error = signal('');
+
+  modalMasivoAbierto = signal(false);
+  textoMasivo = '';
+  resultadoMasivo = signal<{ creados: number; errores: string[] } | null>(null);
+  errorMasivo = signal('');
 
   categorias = signal<Categoria[]>([]);
   productos = signal<Producto[]>([]);
@@ -79,14 +85,26 @@ export class Productos implements OnInit {
     const filtro = this.filtroActivo();
     const texto = this.busqueda().toLowerCase();
 
-    return this.productos().filter(p => {
+    let lista = this.productos().filter(p => {
       const coincideTexto = p.nombre.toLowerCase().includes(texto) ||
         (p.codigo_barras ?? '').includes(texto);
       if (!coincideTexto) return false;
       if (filtro === 'Todos') return true;
       return p.stock <= p.stock_minimo;
     });
+
+    if (this.ordenCategoria()) {
+      lista = [...lista].sort((a, b) =>
+        (a.categoria_nombre ?? '').localeCompare(b.categoria_nombre ?? '')
+      );
+    }
+
+    return lista;
   });
+
+  toggleOrdenCategoria() {
+    this.ordenCategoria.update(v => !v);
+  }
 
   private productoVacio(): Producto {
     return {
@@ -156,5 +174,57 @@ export class Productos implements OnInit {
         error: (err) => this.error.set(err.error?.error || 'No se pudo crear el producto.'),
       });
     }
+  }
+
+  abrirModalMasivo() {
+    this.textoMasivo = '';
+    this.resultadoMasivo.set(null);
+    this.errorMasivo.set('');
+    this.modalMasivoAbierto.set(true);
+  }
+
+  cerrarModalMasivo() {
+    this.modalMasivoAbierto.set(false);
+  }
+
+  cargarMasivo() {
+    const lineas = this.textoMasivo.split('\n').map(l => l.trim()).filter(l => l.length > 0);
+
+    if (lineas.length === 0) {
+      this.errorMasivo.set('Pega al menos una línea con datos.');
+      return;
+    }
+
+    const productosNuevos = lineas.map(linea => {
+      const partes = linea.split(',').map(p => p.trim());
+      const [nombre, codigo_barras, nombreCategoria, unidad, precio_venta, precio_compra, stock, stock_minimo] = partes;
+
+      const categoria = this.categorias().find(
+        c => c.nombre.toLowerCase() === (nombreCategoria ?? '').toLowerCase()
+      );
+
+      return {
+        nombre,
+        codigo_barras,
+        categoria_id: categoria ? categoria.id : null,
+        unidad: unidad || 'Unidad',
+        precio_venta: parseFloat(precio_venta),
+        precio_compra: parseFloat(precio_compra),
+        stock: parseInt(stock) || 0,
+        stock_minimo: parseInt(stock_minimo) || 0,
+      };
+    });
+
+    this.errorMasivo.set('');
+
+    this.http.post<{ creados: number; errores: string[] }>(`${API_URL}/productos/bulk`, {
+      productos: productosNuevos,
+    }).subscribe({
+      next: (respuesta) => {
+        this.resultadoMasivo.set(respuesta);
+        this.cargarProductos();
+      },
+      error: (err) => this.errorMasivo.set(err.error?.error || 'No se pudo procesar la carga.'),
+    });
   }
 }

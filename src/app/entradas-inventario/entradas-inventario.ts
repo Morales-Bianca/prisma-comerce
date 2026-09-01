@@ -18,6 +18,15 @@ interface Entrada {
   fecha: string;
 }
 
+interface Salida {
+  id: number;
+  producto_nombre: string;
+  cantidad: number;
+  motivo: string;
+  registrado_por: string;
+  fecha: string;
+}
+
 const API_URL = 'http://localhost:3000/api';
 
 @Component({
@@ -30,9 +39,14 @@ const API_URL = 'http://localhost:3000/api';
 export class EntradasInventario implements OnInit {
   productos = signal<Producto[]>([]);
   entradas = signal<Entrada[]>([]);
+  salidas = signal<Salida[]>([]);
   cargando = signal(false);
   error = signal('');
   exito = signal(false);
+  errorSalida = signal('');
+  exitoSalida = signal(false);
+
+  motivosSalida = ['Merma', 'Producto dañado', 'Corrección de inventario', 'Otro'];
 
   usuarioId: number;
 
@@ -40,6 +54,12 @@ export class EntradasInventario implements OnInit {
     producto_id: null as number | null,
     cantidad: 0,
     origen: '',
+  };
+
+  nuevaSalida = {
+    producto_id: null as number | null,
+    cantidad: 0,
+    motivo: 'Merma',
   };
 
   constructor(private http: HttpClient) {
@@ -50,6 +70,7 @@ export class EntradasInventario implements OnInit {
   ngOnInit() {
     this.cargarProductos();
     this.cargarEntradas();
+    this.cargarSalidas();
   }
 
   cargarProductos() {
@@ -73,6 +94,13 @@ export class EntradasInventario implements OnInit {
     });
   }
 
+  cargarSalidas() {
+    this.http.get<Salida[]>(`${API_URL}/salidas`).subscribe({
+      next: (data) => this.salidas.set(data),
+      error: (err) => console.error('Error cargando salidas', err),
+    });
+  }
+
   registrarEntrada() {
     if (!this.nuevaEntrada.producto_id || this.nuevaEntrada.cantidad <= 0 || !this.nuevaEntrada.origen.trim()) {
       this.error.set('Selecciona un producto, una cantidad válida y el origen.');
@@ -93,6 +121,29 @@ export class EntradasInventario implements OnInit {
         this.cargarEntradas();
       },
       error: (err) => this.error.set(err.error?.error || 'No se pudo registrar la entrada.'),
+    });
+  }
+
+  registrarSalida() {
+    if (!this.nuevaSalida.producto_id || this.nuevaSalida.cantidad <= 0 || !this.nuevaSalida.motivo) {
+      this.errorSalida.set('Selecciona un producto, una cantidad válida y el motivo.');
+      return;
+    }
+
+    this.errorSalida.set('');
+
+    this.http.post(`${API_URL}/salidas`, {
+      ...this.nuevaSalida,
+      usuario_id: this.usuarioId,
+    }).subscribe({
+      next: () => {
+        this.nuevaSalida = { producto_id: null, cantidad: 0, motivo: 'Merma' };
+        this.exitoSalida.set(true);
+        setTimeout(() => this.exitoSalida.set(false), 2500);
+        this.cargarProductos();
+        this.cargarSalidas();
+      },
+      error: (err) => this.errorSalida.set(err.error?.error || 'No se pudo registrar la salida.'),
     });
   }
 }

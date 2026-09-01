@@ -88,8 +88,8 @@
 
 .table-header,
 .table-row {
-  display: grid;
-  grid-template-columns: 2fr 1.4fr 1fr 0.8fr 0.5fr;
+ display: grid;
+  grid-template-columns: 1.6fr 1.2fr 1.2fr 0.8fr 0.7fr 0.5fr;
   align-items: center;
   padding: 16px 20px;
   gap: 8px;
@@ -262,6 +262,35 @@
 .error-msg {
   background: rgba(239, 91, 91, 0.12);
   color: #ef5b5b;
+  border-radius: 10px;
+  padding: 10px 12px;
+  font-size: 0.85rem;
+  margin: 0;
+}
+.btn-masivo {
+  background: #3ecf8e;
+  margin-left: 8px;
+}
+
+.modal-ancho {
+  max-width: 560px;
+}
+
+.modal textarea {
+  background: #0b1220;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  padding: 12px 14px;
+  color: #f5f7fa;
+  outline: none;
+  font-family: 'Courier New', monospace;
+  font-size: 0.85rem;
+  resize: vertical;
+}
+
+.exito-msg {
+  background: rgba(62, 207, 142, 0.12);
+  color: #3ecf8e;
   border-radius: 10px;
   padding: 10px 12px;
   font-size: 0.85rem;
