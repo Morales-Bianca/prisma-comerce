@@ -11,7 +11,7 @@ import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
 export class Layout {
   navItems = [
     { path: 'dashboard', label: 'Home', icon: '' },
-    { path: 'usuarios', label: 'usuarios', icon: '' },
-    { path: 'productos', label: 'productos', icon: '' },
+    { path: 'usuarios', label: 'Usuarios', icon: '' },
+    { path: 'productos', label: 'Productos', icon: '' },
   ];
 }
